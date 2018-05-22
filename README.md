@@ -1,2 +1,2 @@
-# avenbooks-server
+# avenbooks
 Server for avenbooks project (CS360 Intro to Database Term Project)
