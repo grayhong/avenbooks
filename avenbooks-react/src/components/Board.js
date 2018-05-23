@@ -22,11 +22,28 @@ class Board extends Component {
         <div style={styles.subStyle}></div>
         <div style={styles.subStyle}></div>
         <div style={styles.subStyle2}></div>
-        {items}
       </div>
     )
   }
 }
+
+const data = [
+  {
+    name: 'intro to db',
+    author: 'hsj',
+    price: '10000'
+  },
+  {
+    name: 'intro to db',
+    author: 'hsj',
+    price: '10000'
+  },
+  {
+    name: 'intro to db',
+    author: 'hsj',
+    price: '10000'
+  }
+]
 
 const styles={
   contentStyle: {
