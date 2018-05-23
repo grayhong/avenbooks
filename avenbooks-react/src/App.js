@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
+import Board from './components/Board';
 
 import './App.css';
 import NavBar from './components/common/NavBar';
@@ -33,6 +34,7 @@ class App extends Component {
           <div style={isLogin? null : { paddingTop: 63 }}>
             <Switch>
               <Route exact path="/" component={Login} />
+              <Route exact path="/board" component={Board} />
               <Redirect from="/" to="/" />
             </Switch>
           </div>

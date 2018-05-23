@@ -45,13 +45,15 @@ class Login extends Component {
               <Header as='h2' color='teal' textAlign='center'>
                 Log-in to your account
               </Header>
-              <Form size='large'>
+              <Form onSubmit={(e) => this.loginUser(e)} size='large'>
                 <Segment stacked>
                   <Form.Input
                       fluid
                       icon='user'
                       iconPosition='left'
                       placeholder='Username'
+                      onChange={event => this.setState({ id: event.target.value })}
+                      value={this.state.id}
                   />
                   <Form.Input
                       fluid
@@ -59,6 +61,8 @@ class Login extends Component {
                       iconPosition='left'
                       placeholder='Password'
                       type='password'
+                      onChange={event => this.setState({ password: event.target.value })}
+                      value={this.state.password}
                   />
 
                   <Button color='teal' fluid size='large'>Login</Button>
