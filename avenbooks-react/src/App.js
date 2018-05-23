@@ -1,24 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Button } from 'semantic-ui-react'
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
+
 import './App.css';
+import NavBar from './components/common/NavBar';
+import Login from './components/Login';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  componentDidUpdate(prevProps) {
+    const { history, location } = this.props;
+    if (
+        history.action === 'PUSH' &&
+        location.pathname !== prevProps.location.pathname
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
+    const { location } = this.props;
+    const { pathname } = location;
+    const isLogin = pathname === '/' || pathname === '/register';
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button primary>Primary</Button>
-        <Button secondary>Secondary</Button>
-      </div>
+      <CookiesProvider>
+        <div className="App">
+          { isLogin ? null: <NavBar /> }
+          <div style={isLogin? null : { paddingTop: 63 }}>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Redirect from="/" to="/" />
+            </Switch>
+          </div>
+        </div>
+      </CookiesProvider>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
