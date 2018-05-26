@@ -24,4 +24,3 @@ insert into SELLING(BookID, SellerID, Edition, Price) values(1, 20160710, 6, 500
 
 
 insert into trade(Sellingid, buyerid, confirmed) values (2, 20160710, false);
-insert into trade(Sellingid, buyerid, confirmed) values (2, 20160710, false);
