@@ -22,7 +22,10 @@ class Board extends Component {
         <div style={styles.subStyle}></div>
         <div style={styles.subStyle}></div>
         <div style={styles.subStyle2}></div>
+        <a class="button">Button</a>
       </div>
+
+
     )
   }
 }
