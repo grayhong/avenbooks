@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import Board from './components/Board';
+import Detail from './components/Detail';
+import MyPage from './components/MyPage';
 
 import './App.css';
 import NavBar from './components/common/NavBar';
@@ -35,6 +37,8 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/board" component={Board} />
+              <Route exact path="/detail" component={Detail} />
+              <Route exact path="/mypage" component={MyPage} />
               <Redirect from="/" to="/" />
             </Switch>
           </div>
