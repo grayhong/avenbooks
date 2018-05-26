@@ -1,4 +1,6 @@
 
+USE UNIVERSITY;
+
 INSERT INTO Student(StudentID, Password, FirstName, LastName, Department, PhoneNumber)
 						VALUES(20160710, '1q2w3e4r', 'Youngkyu', 'Hong', 'CS', '01035858953');
                         
