@@ -2,7 +2,7 @@
 import { config } from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
-// import addRoutes from './routes';
+import addRoutes from './routes';
 
 /* Environment variable settings. */
 config();
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* Routes settings. */
-// addRoutes(app);
+addRoutes(app);
 
 /* Start listening to given port. */
 app.listen(PORT, () => {
