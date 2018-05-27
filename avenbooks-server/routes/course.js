@@ -12,7 +12,7 @@ router.get('/course', async (req, res) => {
                   on b.bookid = s.s_bookid ) as c`;
 
   try {
-    book_list = await query(sql);
+    book_list = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }

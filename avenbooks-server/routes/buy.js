@@ -11,7 +11,7 @@ router.get('/buy', async(req, res) => {
                 where s.sellingid = t.sellingid;`;
   
   try {
-    const buy_list = await query(sql);
+    const buy_list = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
@@ -30,7 +30,7 @@ router.post('/confirm', async (req, res) => {
     return res.status(500).end(err.message);
   }
 
-  res.status(201).end(`Successfully uploaded book!`);
+  res.status(201).end(`Successfully made confirmation!`);
 });
 
 router.post('/buy', async (req, res) => {
@@ -45,7 +45,7 @@ router.post('/buy', async (req, res) => {
     return res.status(500).end(err.message);
   }
 
-  res.status(201).end(`Successfully uploaded book!`);
+  res.status(201).end(`Successfully made buy request!`);
 });
 
 

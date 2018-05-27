@@ -20,13 +20,13 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
   const { sid, password, name, phoneNumber } = req.body;
-  console.log(req.body);
   if (!sid || !name || !password || !phoneNumber) return res.status(400).end('sid, name, phone number, password should be given.');
   // 400 when already registered
   // if (await UserModel.findOne({ id })) return res.status(400).end('Duplicate id.');
   console.log('register');
-  const sql = `INSERT INTO Student(StudentID, Password, Name, PhoneNumber)\
-                            VALUES(${parseInt(sid)}, ${password}, ${name}, ${phoneNumber})`
+  const sql = `INSERT INTO Student VALUES(${parseInt(sid)}, '${password}', '${name}', '${phoneNumber}')`
+  console.log(sql);
+
   try {
     await query(sql);
   } catch (err) {
@@ -38,15 +38,14 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { sid, password } = req.body;
-
-  const sql = `SELECT * FROM Student WHERE StudentID=${sid} && Password = ${password};`
   
+  const sql = `SELECT * FROM Student WHERE StudentID=${parseInt(sid)} && Password = '${password}'`
+  let user = {};
   try {
     user = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
-
   if (!user) return res.status(401).end();
   const { password: _, ...userWithoutPassword } = user;
   res.status(200).json(userWithoutPassword);
