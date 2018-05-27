@@ -20,12 +20,12 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
   const { sid, password, name, phoneNumber } = req.body;
-  if (!sid || !name || !password || !phoneNumber) return res.status(400).end('id, nickname, password should be given.');
+  if (!sid || !name || !password || !phoneNumber) return res.status(400).end('sid, name, phone number, password should be given.');
   // 400 when already registered
   // if (await UserModel.findOne({ id })) return res.status(400).end('Duplicate id.');
   console.log('register');
   const sql = `INSERT INTO Student(StudentID, Password, Name, PhoneNumber)\
-                            VALUES(${sid}, ${password}, ${name}, ${phoneNumber})`
+                            VALUES(${parseInt(sid)}, ${password}, ${name}, ${phoneNumber})`
   try {
     await query(sql);
   } catch (err) {
