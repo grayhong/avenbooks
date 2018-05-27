@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {LOGIN_URL} from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
+import {Link} from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -69,7 +70,12 @@ class Login extends Component {
                 </Segment>
               </Form>
               <Message>
-                New to us? <a href='#'>Sign Up</a>
+                New to us?
+                <a>
+                  <Link to='/register' style={{marginLeft: '5px'}}>
+                    Sign Up
+                  </Link>
+                </a>
               </Message>
             </Grid.Column>
           </Grid>

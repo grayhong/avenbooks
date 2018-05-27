@@ -6,9 +6,7 @@ USE UNIVERSITY;
 CREATE TABLE STUDENT (
 	StudentID integer PRIMARY KEY,
     Password varchar(30),
-	FirstName varchar(30),
-    LastName varchar(30),
-	Department varchar(5),
+	Name varchar(30),
     PhoneNumber char(11)
 );
     
