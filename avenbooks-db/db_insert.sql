@@ -1,7 +1,7 @@
 
 USE UNIVERSITY;
 
-INSERT INTO Student(StudentID, Password, Name, honeNumber)
+INSERT INTO Student(StudentID, Password, Name, phoneNumber)
 						VALUES(20160710, '1q2w3e4r', 'Youngkyu Hong', '01035858953');
                         
  insert into DEPARTMENT values('CS', 'Computer Science', '0423503502');
