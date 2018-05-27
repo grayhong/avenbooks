@@ -9,26 +9,18 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
+      sid: '',
       password: '',
+      name: '',
+      phoneNumber: '',
     };
-    this.loginUser = this.loginUser.bind(this);
+    this.registerUser = this.registerUser.bind(this);
   }
 
-  componentWillMount() {
-  }
-
-  loginUser(e) {
-    const { id, password } = this.state;
-    const { cookies } = this.props;
-    axios.post(REGISTER_URL, {id, password})
-        .then((res) => {
-          const {id, nickname, _id} = res.data;
-          cookies.set('id', id, { path: '/' });
-          cookies.set('nickname', nickname, { path: '/' });
-          cookies.set('_id', _id, { path: '/' });
-          this.props.history.replace('/home');
-        })
+  registerUser(e) {
+    const { sid, password, name, phoneNumber } = this.state;
+    axios.post(REGISTER_URL, { sid, password, name, phoneNumber })
+        .then((m) => this.props.history.push('/'))
         .catch((e) => console.log(e));
     e.preventDefault();
   }
@@ -45,22 +37,21 @@ class Register extends Component {
               <Header as='h2' color='teal' textAlign='center'>
                 Register
               </Header>
-              <Form onSubmit={(e) => this.loginUser(e)} size='large'>
+              <Form onSubmit={(e) => this.registerUser(e)} size='large'>
                 <Segment stacked>
                   <Form.Input
                       fluid
                       icon='user'
                       iconPosition='left'
                       placeholder='Student ID'
-                      onChange={event => this.setState({ id: event.target.value })}
-                      value={this.state.id}
+                      onChange={event => this.setState({ sid: event.target.value })}
+                      value={this.state.sid}
                   />
                   <Form.Input
                       fluid
                       icon='lock'
                       iconPosition='left'
                       placeholder='Password'
-                      type='password'
                       onChange={event => this.setState({ password: event.target.value })}
                       value={this.state.password}
                   />
@@ -69,9 +60,8 @@ class Register extends Component {
                       icon='user'
                       iconPosition='left'
                       placeholder='Name'
-                      type='password'
-                      onChange={event => this.setState({ password: event.target.value })}
-                      value={this.state.password}
+                      onChange={event => this.setState({ name: event.target.value })}
+                      value={this.state.name}
                   />
 
                   <Form.Input
@@ -79,9 +69,8 @@ class Register extends Component {
                       icon='phone'
                       iconPosition='left'
                       placeholder='Phone Number'
-                      type='password'
-                      onChange={event => this.setState({ password: event.target.value })}
-                      value={this.state.password}
+                      onChange={event => this.setState({ phoneNumber: event.target.value })}
+                      value={this.state.phoneNumber}
                   />
 
 
