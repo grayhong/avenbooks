@@ -42,7 +42,7 @@ router.post('/login', async (req, res) => {
   const sql = `SELECT * FROM Student WHERE StudentID=${sid} && Password = ${password};`
   
   try {
-    user = await query(sql);
+    user = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
