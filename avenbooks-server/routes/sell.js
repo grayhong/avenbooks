@@ -9,10 +9,10 @@ router.get('/sell', async (req, res) => {
   let sql = '';
 
   if (sellerID) {
-    sql = `SELECT * FROM SELLING WHERE SellerID=${sellerID}`;
+    sql = `SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}`;
   }
   else if (bookID) {
-    sql = `SELECT * FROM SELLING WHERE BookID=${bookID} ORDER BY Price`;
+    sql = `SELECT * FROM SELLING WHERE BookID=${parseInt(bookID)} ORDER BY Price`;
   }
   else {
     sql = 'SELECT * FROM SELLING';
@@ -30,7 +30,7 @@ router.get('/sell', async (req, res) => {
 router.post('/sell', async (req, res) => {
   const { bookID, sellerID, price, edition } = req.body;
   const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price)\
-               VALUES(${bookID}, ${edition}, ${sellerID}, ${price})`
+               VALUES(${parseInt(bookID)}, ${parseInt(edition)}, ${parseInt(sellerID)}, ${parseInt(price)})`
   
   // time을 이름으로 사진 저장
 
