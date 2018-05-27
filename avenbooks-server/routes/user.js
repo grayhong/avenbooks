@@ -24,8 +24,8 @@ router.post('/register', async (req, res) => {
   // 400 when already registered
   // if (await UserModel.findOne({ id })) return res.status(400).end('Duplicate id.');
   console.log('register');
-  const sql = 'INSERT INTO Student(StudentID, Password, Name, PhoneNumber)' + \
-            `VALUES(${sid}, ${password}, ${name}, ${phoneNumber})`
+  const sql = `INSERT INTO Student(StudentID, Password, Name, PhoneNumber)\
+                            VALUES(${sid}, ${password}, ${name}, ${phoneNumber})`
   try {
     await query(sql);
   } catch (err) {
