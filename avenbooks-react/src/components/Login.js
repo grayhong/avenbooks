@@ -52,7 +52,7 @@ class Login extends Component {
                       fluid
                       icon='user'
                       iconPosition='left'
-                      placeholder='Username'
+                      placeholder='Student ID'
                       onChange={event => this.setState({ sid: event.target.value })}
                       value={this.state.sid}
                   />
