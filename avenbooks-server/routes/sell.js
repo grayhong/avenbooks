@@ -9,17 +9,17 @@ router.get('/sell', async (req, res) => {
   let sql = '';
 
   if (sellerID) {
-    sql = `SELECT * FROM SELLING WHERE SellerID=${sellerID}`;
+    sql = `SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}`;
   }
   else if (bookID) {
-    sql = `SELECT * FROM SELLING WHERE BookID=${bookID} ORDER BY Price`;
+    sql = `SELECT * FROM SELLING WHERE BookID=${parseInt(bookID)} ORDER BY Price`;
   }
   else {
     sql = 'SELECT * FROM SELLING';
   }
 
   try {
-    sell_list = await query(sql);
+    sell_list = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
@@ -29,14 +29,8 @@ router.get('/sell', async (req, res) => {
 
 router.post('/sell', async (req, res) => {
   const { bookID, sellerID, price, edition } = req.body;
-  
-  let starttime = new Date();
-  let fixedtime = new Date(starttime.getTime()-(starttime.getTimezoneOffset()*60000));
-  
-  const time = fixedtime.toISOString().slice(0, 19)
-  const dateTime = time.replace('T', ' ');
-  const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price, Time)\
-               VALUES(${bookID}, ${edition}, ${sellerID}, ${price}, ${dateTime})`
+  const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price)\
+               VALUES(${parseInt(bookID)}, ${parseInt(edition)}, ${parseInt(sellerID)}, ${parseInt(price)})`
   
   // time을 이름으로 사진 저장
 

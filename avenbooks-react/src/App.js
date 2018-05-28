@@ -8,6 +8,7 @@ import MyPage from './components/MyPage';
 import './App.css';
 import NavBar from './components/common/NavBar';
 import Login from './components/Login';
+import Register from './components/Register';
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends Component {
           <div style={isLogin? null : { paddingTop: 63 }}>
             <Switch>
               <Route exact path="/" component={Login} />
+              <Route exact path="/register" component={Register} />
               <Route exact path="/board" component={Board} />
               <Route exact path="/detail" component={Detail} />
               <Route exact path="/mypage" component={MyPage} />

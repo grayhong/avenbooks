@@ -7,11 +7,11 @@ router.get('/buy', async(req, res) => {
   const { sellerID } = req.query;
 
   const sql = `select * from trade as t inner join \
-                ( select * from selling where sellerid=${sellerID} ) as s \
+                ( select * from selling where sellerid=${parseInt(sellerID)} ) as s \
                 where s.sellingid = t.sellingid;`;
   
   try {
-    const buy_list = await query(sql);
+    const buy_list = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
@@ -22,7 +22,7 @@ router.get('/buy', async(req, res) => {
 router.post('/confirm', async (req, res) => {
   const { sellingID, buyerID } = req.body;
   
-  const sql = `UPDATE TRADE SET Confirmed=true WHERE SellingID=${sellingID} && BuyerID = ${buyerID}`;
+  const sql = `UPDATE TRADE SET Confirmed=true WHERE SellingID=${parseInt(sellingID)} && BuyerID = ${parseInt(buyerID)}`;
   
   try {
     await query(sql);
@@ -30,14 +30,14 @@ router.post('/confirm', async (req, res) => {
     return res.status(500).end(err.message);
   }
 
-  res.status(201).end(`Successfully uploaded book!`);
+  res.status(201).end(`Successfully made confirmation!`);
 });
 
 router.post('/buy', async (req, res) => {
   const { sellingID, buyerID } = req.body;
   
   const sql = `INSERT INTO TRADE (SellingID, BuyerID, Confirmed)\
-                          VALUES (${sellingID}, ${buyerID}, false)`
+                          VALUES (${parseInt(sellingID)}, ${parseInt(buyerID)}, false)`
   
   try {
     await query(sql);
@@ -45,7 +45,7 @@ router.post('/buy', async (req, res) => {
     return res.status(500).end(err.message);
   }
 
-  res.status(201).end(`Successfully uploaded book!`);
+  res.status(201).end(`Successfully made buy request!`);
 });
 
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {LOGIN_URL} from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
+import {Link} from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -9,7 +10,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
+      sid: '',
       password: '',
     };
     this.loginUser = this.loginUser.bind(this);
@@ -19,15 +20,15 @@ class Login extends Component {
   }
 
   loginUser(e) {
-    const { id, password } = this.state;
+    const { sid, password } = this.state;
     const { cookies } = this.props;
-    axios.post(LOGIN_URL, {id, password})
+    axios.post(LOGIN_URL, {sid, password})
         .then((res) => {
-          const {id, nickname, _id} = res.data;
-          cookies.set('id', id, { path: '/' });
-          cookies.set('nickname', nickname, { path: '/' });
-          cookies.set('_id', _id, { path: '/' });
-          this.props.history.replace('/home');
+          const { StudentID, Name, PhoneNumber } = res.data[0];
+          cookies.set('StudentID', StudentID, { path: '/' });
+          cookies.set('Name', Name, { path: '/' });
+          cookies.set('PhoneNumber', PhoneNumber, { path: '/' });
+          this.props.history.replace('/board');
         })
         .catch((e) => console.log(e));
     e.preventDefault();
@@ -51,9 +52,9 @@ class Login extends Component {
                       fluid
                       icon='user'
                       iconPosition='left'
-                      placeholder='Username'
-                      onChange={event => this.setState({ id: event.target.value })}
-                      value={this.state.id}
+                      placeholder='Student ID'
+                      onChange={event => this.setState({ sid: event.target.value })}
+                      value={this.state.sid}
                   />
                   <Form.Input
                       fluid
@@ -69,7 +70,12 @@ class Login extends Component {
                 </Segment>
               </Form>
               <Message>
-                New to us? <a href='#'>Sign Up</a>
+                New to us?
+                <a>
+                  <Link to='/register' style={{marginLeft: '5px'}}>
+                    Sign Up
+                  </Link>
+                </a>
               </Message>
             </Grid.Column>
           </Grid>
