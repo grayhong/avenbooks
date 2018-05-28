@@ -18,6 +18,9 @@ class BoardEntry extends Component{
           <p style={styles.priceStyle}>{"Price"}</p>
           <p style={styles.costStyle}>{this.props.cost + "$ ~ "}</p>
         </div>
+        <div style={styles.buyNowContentStyle}>
+          <p style={styles.buyNowStyle}>Buy Now > </p>
+        </div>
       </div>
     )
   }
@@ -37,7 +40,14 @@ const styles = {
   contentStyle: {
     display: 'inline-block',
     verticalAlign: 'top',
+    width: '40%',
     margin: '0.8rem',
+  },
+  buyNowContentStyle: {
+    display: 'inline-block',
+    verticalAlign: 'top',
+    margin: '0.8rem',
+    width: '10%',
   },
   imageStyle: {
     width: '30%',
@@ -75,7 +85,7 @@ const styles = {
   },
   priceStyle:{
     margin: '0.2rem',
-    marginTop: '2.5rem',
+    marginTop: '2rem',
     fontSize: '1.15rem',
     wordWrap: 'break-word',
     whiteSpace: 'initial',
@@ -93,6 +103,15 @@ const styles = {
   subjectStyle: {
     margin: '0.5rem',
     fontSize: '0.85rem',
+  },
+  buyNowStyle: {
+    width: '10rem',
+    marginLeft: '13rem',
+    marginTop: '13rem',
+    fontSize: '1.5rem',
+    fontStyle: 'italic',
+    textDecoration: 'underline',
+    color: '#87CEEB',
   },
 };
 

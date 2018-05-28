@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {Search, Form, Input} from 'semantic-ui-react';
+import axios from 'axios';
+import {Form} from 'semantic-ui-react';
 import { withCookies, Cookies } from 'react-cookie';
 import Logo from '../static/icons/logo.svg'
 import BoardEntry from './BoardEntry'
+import {BOARD_URL, LOGIN_URL} from "../constants";
 
 class Board extends Component {
   constructor(props) {
@@ -91,11 +93,21 @@ class Board extends Component {
   }
 
   componentWillMount() {
+    console.log('Hello');
     const { cookies } = this.props;
+    axios.get(BOARD_URL, {withCredentials: true})
+      .then((res) => {
+        this.setState({
+          data: res.data
+        })
+      })
+      .catch((e) => console.log(e));
   }
+
   componentDidMount() {
 
   }
+
   render() {
     const entry = this.state.searchData.map(function(item) {
       return (

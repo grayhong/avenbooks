@@ -147,13 +147,6 @@ class Register extends Component{
   }
 }
 
-const a = {
-  a: 1,
-  b: 2,
-};
-
-const b = {...a, c: 3}
-
 const styles = {
   section: {
     height: '85vh',
