@@ -9,83 +9,61 @@ class Detail extends Component {
     super(props);
     this.state = {
       bookInfo: {
-        name: "Introduction to DB",
-        author: "HSJ",
-        course: "CS360"
+        BookID: 1,
+        BookName: "Introduction to DB",
+        Author: "HSJ",
+        CourseID: "CS360"
       },
       sellingInfo: [
         {
-          sellingId: 1,
-          seller: 20160140,
-          price: 10000,
-          time: new Date('2018-05-26T00:49:00+09:00').toString()
+          SellingID: 1,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
         },
         {
-          sellingId: 2,
-          seller: 20160710,
-          price: 20000,
-          time: new Date('2018-05-25T00:49:00+09:00').toString()
+          SellingID: 2,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
         },
         {
-          sellingId: 3,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
+          SellingID: 3,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
         },
         {
-          sellingId: 4,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
+          SellingID: 4,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
         },
         {
-          sellingId: 5,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
+          SellingID: 5,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
         },
         {
-          sellingId: 6,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
+          SellingID: 6,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
         },
         {
-          sellingId: 7,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
-        },
-        {
-          sellingId: 8,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
-        },
-        {
-          sellingId: 9,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
-        },
-        {
-          sellingId: 10,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
-        },
-        {
-          sellingId: 11,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
-        },
-        {
-          sellingId: 12,
-          seller: 20160022,
-          price: 30000,
-          time: new Date('2018-05-22T00:49:00+09:00').toString()
-        },
+          SellingID: 7,
+          BookID: 1,
+          SellerID: 20160140,
+          Price: 10000,
+          Time: new Date('2018-05-26T00:49:00+09:00').toString()
+        }
       ]
     }
   }
@@ -101,17 +79,17 @@ class Detail extends Component {
           <Header
             as='h2'
             image={course}
-            content={this.state.bookInfo.name + ', ' +
-            this.state.bookInfo.author + ', ' +
-            this.state.bookInfo.course}
+            content={this.state.bookInfo.BookName + ', ' +
+            this.state.bookInfo.Author + ', ' +
+            this.state.bookInfo.CourseID}
           />
         </div>
-          <Card.Group centered>
+          <Card.Group style={styles.cardGroupStyle}>
             {this.state.sellingInfo.map((info, i) => {
-              return (<SellingInfo price={info.price}
-                                   sellingId={info.sellingId}
-                                   seller={info.seller}
-                                   time={info.time}
+              return (<SellingInfo price={info.Price}
+                                   sellingId={info.SellingID}
+                                   seller={info.SellerID}
+                                   time={info.Time}
                                    key={i}/>);
             })}
           </Card.Group>
@@ -123,9 +101,19 @@ class Detail extends Component {
 class SellingInfo extends React.Component {
   state = { open: false }
 
-  show = () => this.setState({ open: true })
-  handleConfirm = () => this.setState({ open: false })
-  handleCancel = () => this.setState({ open: false })
+  show = () => {
+    this.setState({ open: true });
+  }
+  /* Called when the modal when OK button */
+  handleConfirm = () => {
+    alert ("BUY!!");
+    this.setState({ open: false });
+  }
+  /* Called when the modal is closed without clicking confirm */
+  handleCancel = () => {
+    alert ("CANCELED!!");
+    this.setState({ open: false });
+  }
 
   render() {
     return (
@@ -149,10 +137,9 @@ class SellingInfo extends React.Component {
             <Button onClick={this.show}>BUY</Button>
             <Confirm
               open={this.state.open}
-              content="Will you really buy?"
               onCancel={this.handleCancel}
               onConfirm={this.handleConfirm}
-              size='large'
+              size='mini'
             />
           </div>
         </Card.Content>
@@ -163,10 +150,17 @@ class SellingInfo extends React.Component {
 
 const styles = {
   detailStyle: {
-    maxWidth: '100vh'
+    width: '20vw',
+    margin: '1vw'
+
   },
   imageStyle: {
     height: '40vh'
+  },
+  cardGroupStyle: {
+    marginTop: '1.5vh',
+    marginLeft: '15vw',
+    marginRight: '15vw',
   }
 };
 
