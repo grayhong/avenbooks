@@ -1,194 +1,153 @@
 import React, { Component } from 'react';
-import {Input, Form, Segment, Button} from 'semantic-ui-react';
+import axios from 'axios';
+import {REGISTER_URL} from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
-import {SELL_URL} from "../constants";
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-class Register extends Component{
-  constructor(props){
+
+class Register extends Component {
+  constructor(props) {
     super(props);
-    this.state={
-      title: '',
-      subject: '',
-      edition: '',
-      price: '',
-      entryState: 'out',
-    }
-    this.changeColor = this.changeColor.bind(this);
-    this.resetColor = this.resetColor.bind(this);
-    this.detectTitle = this.detectTitle.bind(this);
-    this.detectSubject = this.detectSubject.bind(this);
-    this.detectEdition = this.detectEdition.bind(this);
-    this.detectPrice = this.detectPrice.bind(this);
-  }
-  componentWillMount(){
-
-  }
-  componentDidMount(){
-
-  }
-  changeColor(){
-    this.setState({
-      entryState: 'in'
-    })
+    this.state = {
+      sid: '',
+      password: '',
+      name: '',
+      phoneNumber: '',
+    };
+    this.registerUser = this.registerUser.bind(this);
   }
 
-  resetColor(){
-    this.setState({
-      entryState: 'out'
-    })
+  registerUser(e) {
+    const { sid, password, name, phoneNumber } = this.state;
+    axios.post(REGISTER_URL, { sid, password, name, phoneNumber })
+      .then((m) => this.props.history.push('/'))
+      .catch((e) => console.log(e));
+    e.preventDefault();
   }
 
-  detectTitle(e){
-    this.setState({ title: e.target.value });
-  }
+  render() {
+    return (
+      <div style={{height: '100vh', backgroundColor: '#F2F6FA'}}>
+        <Grid
+          textAlign='center'
+          style={{ height: '100%' }}
+          verticalAlign='middle'
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='teal' textAlign='center'>
+              Register
+            </Header>
+            <Form onSubmit={(e) => this.registerUser(e)} size='large'>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Student ID'
+                  onChange={event => this.setState({ sid: event.target.value })}
+                  value={this.state.sid}
+                />
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  onChange={event => this.setState({ password: event.target.value })}
+                  value={this.state.password}
+                />
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Name'
+                  onChange={event => this.setState({ name: event.target.value })}
+                  value={this.state.name}
+                />
 
-  detectSubject(e){
-    this.setState({ subject: e.target.value });
-  }
+                <Form.Input
+                  fluid
+                  icon='phone'
+                  iconPosition='left'
+                  placeholder='Phone Number'
+                  onChange={event => this.setState({ phoneNumber: event.target.value })}
+                  value={this.state.phoneNumber}
+                />
 
-  detectEdition(e){
-    this.setState({ edition: e.target.value });
-  }
 
-  detectPrice(e){
-    this.setState({ price: e.target.value });
-  }
-
-  testFunc = (e) => {
-    alert(e.target.files[0]);
-  };
-
-  render(){
-    return(
-      <div style={styles.section}>
-
-        <div style={styles.divStyle}></div>
-
-        <div style={styles.divStyle}>
-          <h1 style={styles.headerStyle}>
-            Upload book for selling
-          </h1>
-        </div>
-
-        <Form>
-
-          <div style={styles.divStyle}>
-            <label style={styles.label}>
-              Enter Book Title
-            </label>
-            <Form.Input
-              fluid
-              style={styles.inputStyle}
-              placeholder='Enter Book Title'
-              onChange={this.detectTitle}
-              type='text' />
-          </div>
-
-          <div style={styles.divStyle}>
-            <label style={styles.label}>
-              Enter Subject Name
-            </label>
-            <Form.Input
-              fluid
-              style={styles.inputStyle}
-              placeholder='Enter Subject Name'
-              onChange={this.detectSubject}
-              type='text' />
-          </div>
-
-          <div style={styles.divStyle}>
-            <label style={styles.label}>
-              Enter Edition
-            </label>
-            <Form.Input
-              fluid
-              style={styles.inputStyle}
-              placeholder='Enter Edition'
-              onChange={this.detectEdition}
-              type='text' />
-          </div>
-
-          <div style={styles.divStyle}>
-            <label style={styles.label}>
-              Upload your book photo
-            </label>
-            <Form.Input
-              onChange={this.testFunc}
-              fluid
-              style={styles.inputStyle}
-              type='file' />
-          </div>
-
-          <div style={styles.divStyle}>
-            <label style={styles.label}>
-              Enter Price
-            </label>
-            <Form.Input
-              fluid
-              style={styles.inputStyle}
-              placeholder='Enter Price'
-              type={this.detectPrice}
-              type='text' />
-          </div>
-
-          <div style={styles.divStyle}></div>
-
-          <button
-            style={{...styles.button,
-              backgroundColor: this.state.entryState === 'out' ? '#ffffff' : '#69c773',
-              color: this.state.entryState === 'out' ? '#69c773' : '#ffffff',}}
-            onMouseEnter={this.changeColor}
-            onMouseLeave={this.resetColor}
-          >
-            SUBMIT
-          </button>
-        </Form>
+                <Button color='teal' fluid size='large'>Register</Button>
+              </Segment>
+            </Form>
+          </Grid.Column>
+        </Grid>
       </div>
-    )
+    );
   }
 }
 
 const styles = {
-  section: {
-    height: '85vh',
-    width: '60vw',
-    backgroundColor: '#FFFFFF',
-    minHeight: '550px',
-    padding: '1em',
-    margin: '1em auto',
-    borderTop: '5px solid #69c773',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.8)',
+  backgroundStyle: {
+    display: 'flex',
+    height: '100vh',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '100% 100%',
   },
-  label: {
-    fontSize: '12pt',
-    textAlign: 'left',
-    display: 'block',
-    paddingBottom: '0.25em',
+  loginInputStyle: {
+    height: '2.5rem',
+    fontSize: '1.2rem',
   },
-  inputStyle: {
-    width: '50vw',
-    margin: 'auto',
-  },
-  divStyle: {
-    width: '50vw',
-    marginBottom: '3vh',
-    marginLeft: '4vw',
-  },
-  headerStyle: {
-    textAlign: 'left',
-  },
-
-  button: {
+  titleTextArea: {
+    borderWidth: '0px',
+    borderBottomWidth: '1px',
+    borderBottomColor: '#efefef',
+    marginBottom: '5px',
+    padding: '0.3rem',
+    fontSize: '1.2rem',
+    fontWeight: 400,
+    lineHeight: '100%',
+    width: '50%',
     outline: 'none',
-    height: '5vh',
-    textAlign: 'center',
-    width: '15vw',
-    minHeight: '30px',
-    borderRadius: '40px',
-    border: '2px solid #69c773',
-    fontSize: '15px',
+    backgroundColor: 'rgb(255,255,255,0)',
   },
-}
+  buttonStyle: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#8B008B',
+    borderRadius: '1.5rem',
+    height: '15%',
+    fontWeight: 900,
+    fontSize: '1.2rem',
+    width: '10rem',
+    marginTop: '5px',
+    cursor: 'pointer',
+    color: '#efefef',
+  },
+  loginBoxStyle: {
+    height: '23%',
 
+    width: '35%',
+  },
+  loginStyle: {
+    height: '23%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '1.5rem',
+    backgroundColor: 'rgb(255,255,255,0.5)',
+    width: '35%',
+  },
+  titleStyle: {
+    fontSize: '1.2rem',
+    fontWeight: 800,
+    width: '55%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  }
+};
 
-export default withCookies(Register);
+export default Register;

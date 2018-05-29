@@ -2,8 +2,7 @@
 import { config } from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
-import mysql from 'mysql';
-// import addRoutes from './routes';
+import addRoutes from './routes';
 
 /* Environment variable settings. */
 config();
@@ -18,16 +17,6 @@ const app = express();
 //   console.log('Connected to mongod server');
 // });
 // mongoose.connect('mongodb://localhost/paperplane');
-const con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1q2w3e4r"
-});
-
-con.connect((err) => {
-  if (err) throw err;
-  console.log("Connected!");
-});
 
 /* Middleware settings. */
 app.use(express.static('static'));
@@ -35,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* Routes settings. */
-// addRoutes(app);
+addRoutes(app);
 
 /* Start listening to given port. */
 app.listen(PORT, () => {

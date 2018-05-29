@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Form} from 'semantic-ui-react';
 import { withCookies, Cookies } from 'react-cookie';
-import Logo from '../static/icons/logo.svg'
-import BoardEntry from './BoardEntry'
+import Logo from '../static/icons/logo.svg';
+import TableEntry from './TableEntry';
 import {TABLE_URL, LOGIN_URL} from "../constants";
 
 class Table extends Component {
@@ -111,7 +111,7 @@ class Table extends Component {
   render() {
     const entry = this.state.searchData.map(function(item) {
       return (
-        <BoardEntry
+        <TableEntry
           bookName={item.bookName}
           subjectName={item.subjectName}
           subjectID={item.subjectID}
