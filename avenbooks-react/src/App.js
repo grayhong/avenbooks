@@ -7,6 +7,8 @@ import Register from './components/Register'
 import './App.css';
 import NavBar from './components/common/NavBar';
 import Login from './components/Login';
+import Sell from './components/Sell'
+import Table from './components/Table'
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +39,8 @@ class App extends Component {
               <Route exact path="/" component={Login} />
               <Route exact path="/board" component={Board} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/sell" component={Sell} />
+              <Route exact path="/table" component={Table} />
               <Redirect from="/" to="/" />
             </Switch>
           </div>

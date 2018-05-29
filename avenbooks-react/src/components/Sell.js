@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {Input, Form, Segment, Button} from 'semantic-ui-react';
 import { withCookies, Cookies } from 'react-cookie';
-import {SELL_URL} from "../constants";
 
-class Register extends Component{
+class Sell extends Component{
   constructor(props){
     super(props);
     this.state={
@@ -154,8 +153,8 @@ const styles = {
     width: '60vw',
     backgroundColor: '#FFFFFF',
     minHeight: '550px',
-    padding: '1em',
-    margin: '1em auto',
+    padding: '3rem',
+    margin: '3rem auto',
     borderTop: '5px solid #69c773',
     boxShadow: '0 2px 10px rgba(0,0,0,0.8)',
   },
@@ -172,7 +171,7 @@ const styles = {
   divStyle: {
     width: '50vw',
     marginBottom: '3vh',
-    marginLeft: '4vw',
+    marginLeft: '2.5vw',
   },
   headerStyle: {
     textAlign: 'left',
@@ -191,4 +190,4 @@ const styles = {
 }
 
 
-export default withCookies(Register);
+export default withCookies(Sell);
