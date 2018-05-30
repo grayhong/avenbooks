@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { SELL_URL } from "../constants";
+import { SELL_URL, BOOK_URL, BUY_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import { Header, Card, Image, Button, Confirm, Search } from 'semantic-ui-react';
 import course from '../static/images/course.png';
@@ -71,8 +71,24 @@ class Detail extends Component {
         }
       ] */
     }
+    //this.getBookInfo = this.getBookInfo.bind(this);
+    //this.getSellingInfo = this.getSellingInfo(this);
   }
 
+  /* Get book informations with bookID */
+  getBookInfo(bookID) {
+    axios.get(BOOK_URL, {
+      params: {
+        bookID: bookID
+      }
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  /* Get selling informations with bookID*/
   getSellingInfo(bookID) {
     axios.get(SELL_URL, {
       params: {
@@ -87,18 +103,19 @@ class Detail extends Component {
 
   componentWillMount() {
     const { cookies, bookID1 } = this.props;
+    /* TODO : Need to use bookID from props */
     const bookID = 1;
     this.getSellingInfo(bookID);
   }
 
   render() {
+    const { cookies, bookID1 } = this.props;
     return (
       <div>
         <div>
           <Header
             as='h2'
             image={course}
-            //content=
             content={this.state.bookInfo.BookName + ', ' +
             this.state.bookInfo.Author + ', ' +
             this.state.bookInfo.CourseID}
@@ -110,6 +127,7 @@ class Detail extends Component {
                                    sellingId={info.SellingID}
                                    seller={info.SellerID}
                                    time={info.Time}
+                                   cookies={cookies}
                                    key={i}/>);
             })}
           </Card.Group>
@@ -124,15 +142,30 @@ class SellingInfo extends React.Component {
   show = () => {
     this.setState({ open: true });
   }
+
   /* Called when the modal when OK button */
   handleConfirm = () => {
+    this.buyingReq();
     alert ("BUY!!");
     this.setState({ open: false });
   }
+
   /* Called when the modal is closed without clicking confirm */
   handleCancel = () => {
     alert ("CANCELED!!");
     this.setState({ open: false });
+  }
+
+  /* Request for buying */
+  buyingReq() {
+    axios.post(BUY_URL, {
+      sellingID: this.props.seller,
+      buyerID: this.props.cookies.get('StudentID')
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
   }
 
   render() {

@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { withCookies, Cookies } from 'react-cookie';
+import {Link} from 'react-router-dom';
 import { Table, Header, Label, Button, Card, Image } from 'semantic-ui-react';
 import course from '../static/images/course.png';
+import {CONFIRM_URL, BUY_URL} from "../constants";
 
 
 class MyPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      /*
+      mySellingInfo: [],
+      buyingReq: [],
+      */
       mySellingInfo: [
         {
           SellingID: 1,
@@ -60,27 +67,60 @@ class MyPage extends Component {
           Finished: false
         },
       ]
+
     }
+  }
+
+  /* Get my selling infomations */
+  getMySellingInfo(studentID) {
+    /* TODO : which url to use here? */
+    axios.get(CONFIRM_URL, {
+      params: {
+        sellerID: studentID
+      }
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  /* Get buying reqests*/
+  getBuyingReq(studentID) {
+    axios.get(BUY_URL, {
+      params: {
+        sellerID: studentID
+      }
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
   }
 
   componentWillMount() {
     const { cookies } = this.props;
+    const studentID = cookies.get('StudentID');
+    console.log(studentID);
+    this.getMySellingInfo(studentID);
+    this.getBuyingReq(studentID);
   }
 
   render() {
+    const { cookies } = this.props;
     return (
       <div>
         <Card centered>
           <Card.Content>
             <Image floated='right' size='mini' src='/assets/images/avatar/large/steve.jpg' />
             <Card.Header>
-              KimYoonseo
+              {cookies.get('Name')}
             </Card.Header>
             <Card.Meta>
-              20160140
+              {cookies.get('StudentID')}
             </Card.Meta>
             <Card.Description>
-              010-4454-2659 CS
+              {cookies.get('PhoneNumber')} CS
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
@@ -171,7 +211,8 @@ class MySellingInfo extends React.Component {
     }
     */
     return (
-      <Table.Row disabled style={styles.rowStyle}>
+      //<Table.Row disabled style={styles.rowStyle}>
+      <Table.Row style={styles.rowStyle}>
         <Table.Cell>
           <Label ribbon>
             {this.props.sellingID}
@@ -190,7 +231,9 @@ class MySellingInfo extends React.Component {
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <Button content='Modify' primary></Button>
+          <Link to='/sell' params={{}}>
+          <Button content='Modify' primary>}></Button>
+          </Link>
           <Button content='Delete' secondary></Button>
         </Table.Cell>
       </Table.Row>
