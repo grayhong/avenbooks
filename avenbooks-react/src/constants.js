@@ -5,4 +5,8 @@ export const BOARD_URL = BASE_URL + 'course';
 export const SELL_URL = BASE_URL + 'sell';
 export const TABLE_URL = BASE_URL + 'table';
 export const REGISTER_URL = BASE_URL + 'register';
+export const BOOK_URL = BASE_URL + 'book';
+export const BUY_URL = BASE_URL + 'buy';
+export const CONFIRM_URL = BASE_URL + 'confirm';
+
 

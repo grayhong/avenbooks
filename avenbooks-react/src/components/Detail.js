@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { SELL_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import { Header, Card, Image, Button, Confirm, Search } from 'semantic-ui-react';
 import course from '../static/images/course.png';
@@ -8,12 +10,15 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      sellingInfo: [],
+
       bookInfo: {
         BookID: 1,
         BookName: "Introduction to DB",
         Author: "HSJ",
         CourseID: "CS360"
-      },
+      }
+      /*
       sellingInfo: [
         {
           SellingID: 1,
@@ -64,12 +69,26 @@ class Detail extends Component {
           Price: 10000,
           Time: new Date('2018-05-26T00:49:00+09:00').toString()
         }
-      ]
+      ] */
     }
   }
 
+  getSellingInfo(bookID) {
+    axios.get(SELL_URL, {
+      params: {
+        bookID: bookID
+      }
+    }).then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
   componentWillMount() {
-    const { cookies } = this.props;
+    const { cookies, bookID1 } = this.props;
+    const bookID = 1;
+    this.getSellingInfo(bookID);
   }
 
   render() {
@@ -79,6 +98,7 @@ class Detail extends Component {
           <Header
             as='h2'
             image={course}
+            //content=
             content={this.state.bookInfo.BookName + ', ' +
             this.state.bookInfo.Author + ', ' +
             this.state.bookInfo.CourseID}
@@ -152,7 +172,6 @@ const styles = {
   detailStyle: {
     width: '20vw',
     margin: '1vw'
-
   },
   imageStyle: {
     height: '40vh'

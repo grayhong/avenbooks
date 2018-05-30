@@ -153,6 +153,13 @@ class MyPage extends Component {
 }
 
 class MySellingInfo extends React.Component {
+  modifySellingInfo(e) {
+
+  }
+
+  deleteSellingInfo(e) {
+
+  }
   render() {
     /*
     var tableRow;
@@ -192,6 +199,14 @@ class MySellingInfo extends React.Component {
 }
 
 class BuyingReq extends React.Component {
+  confirmBuyingReq(e) {
+
+  }
+
+  rejectBuyingReq(e) {
+
+  }
+
   render () {
     return (
       <Table.Row style={styles.rowStyle}>
@@ -224,7 +239,6 @@ class BuyingReq extends React.Component {
 const styles = {
   tableStyle: {
     margin: 'auto',
-
   },
   subStyle: {
     width: '15vw',
