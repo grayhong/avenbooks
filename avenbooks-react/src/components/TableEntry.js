@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withCookies, Cookies } from 'react-cookie';
+import {Link} from 'react-router-dom';
 
 class TableEntry extends Component{
   constructor(props){
@@ -19,7 +20,10 @@ class TableEntry extends Component{
           <p style={styles.costStyle}>{this.props.cost + "$ ~ "}</p>
         </div>
         <div style={styles.buyNowContentStyle}>
-          <p style={styles.buyNowStyle}>Buy Now > </p>
+          <p style={styles.buyNowStyle}>
+            <Link to='/detail' params={{}}>
+              Buy Now >
+            </Link> </p>
         </div>
       </div>
     )
