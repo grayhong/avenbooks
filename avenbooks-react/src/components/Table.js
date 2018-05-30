@@ -4,7 +4,7 @@ import {Form} from 'semantic-ui-react';
 import { withCookies, Cookies } from 'react-cookie';
 import Logo from '../static/icons/logo.svg';
 import TableEntry from './TableEntry';
-import {TABLE_URL, LOGIN_URL} from "../constants";
+import {TABLE_URL, LOGIN_URL, BOARD_URL} from "../constants";
 
 class Table extends Component {
   constructor(props) {
@@ -93,13 +93,11 @@ class Table extends Component {
   }
 
   componentWillMount() {
-    console.log('Hello');
     const { cookies } = this.props;
-    axios.get(TABLE_URL, {withCredentials: true})
+    console.log(cookies.get('StudentID'));
+    axios.get(BOARD_URL)
       .then((res) => {
-        this.setState({
-          data: res.data
-        })
+        console.log(res.couresID);
       })
       .catch((e) => console.log(e));
   }
