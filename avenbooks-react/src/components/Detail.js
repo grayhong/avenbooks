@@ -70,35 +70,10 @@ class Detail extends Component {
           Time: new Date('2018-05-26T00:49:00+09:00').toString()
         }
       ] */
-    }
+    };
+
     //this.getBookInfo = this.getBookInfo.bind(this);
-    //this.getSellingInfo = this.getSellingInfo(this);
-  }
-
-  /* Get book informations with bookID */
-  getBookInfo(bookID) {
-    axios.get(BOOK_URL, {
-      params: {
-        bookID: bookID
-      }
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
-      console.log(error);
-    });
-  }
-
-  /* Get selling informations with bookID*/
-  getSellingInfo(bookID) {
-    axios.get(SELL_URL, {
-      params: {
-        bookID: bookID
-      }
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
-      console.log(error);
-    });
+    this.getSellingInfo = this.getSellingInfo.bind(this);
   }
 
   componentWillMount() {
@@ -106,6 +81,36 @@ class Detail extends Component {
     /* TODO : Need to use bookID from props */
     const bookID = 1;
     this.getSellingInfo(bookID);
+  }
+
+
+  /* Get book informations with bookID */
+  getBookInfo(bookID) {
+    axios.get(BOOK_URL, {
+      params: {
+        bookID: bookID
+      }
+    }).then((res) => {
+      //this.sellinginfo = response.data;
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  /* Get selling informations with bookID*/
+  getSellingInfo(bookID) {
+    console.log("getSellingInfo");
+    axios.get(SELL_URL, {
+      params: {
+        bookID: bookID
+      }
+    }).then((res) => {
+      this.setState({sellingInfo : res.data});
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
