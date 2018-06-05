@@ -127,8 +127,7 @@ class Detail extends Component {
             style={styles.headerStyle}
             as='h1'
             content={this.state.bookInfo.BookName + ', ' +
-            this.state.bookInfo.Author + ', ' +
-            this.state.bookInfo.CourseID}
+            this.state.bookInfo.Author}
           />
         </div>
           <Card.Group style={styles.cardGroupStyle}>
