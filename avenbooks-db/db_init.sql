@@ -23,12 +23,9 @@ CREATE TABLE BOOK (
     BookName varchar(100),
     CurrentEdition integer,
     Author varchar(30),
-    PRIMARY KEY (BookID),
-    FOREIGN KEY (CourseID)
-        REFERENCES COURSE (CourseID)
-        ON DELETE CASCADE
+    PRIMARY KEY (BookID)
 );
-    
+
 CREATE TABLE COURSE (
     CourseID varchar(8) NOT NULL,
     CourseName varchar(40),
@@ -36,7 +33,7 @@ CREATE TABLE COURSE (
     DepartmentID char(3) NOT NULL,
     CourseBookID integer,
     PRIMARY KEY (CourseID),
-    FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID)
+    FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID),
     FOREIGN KEY (CourseBookID) REFERENCES BOOK(BookID)
 );
 
