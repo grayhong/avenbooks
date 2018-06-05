@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Input, Form, Search, Grid, Header, Dropdown} from 'semantic-ui-react';
 import { withCookies, Cookies } from 'react-cookie';
+import {Link} from 'react-router-dom';
 import SellDetail from './SellDetail';
 import {SELL_URL, BOARD_URL} from "../constants";
 
@@ -10,8 +11,11 @@ class Sell extends Component{
     super(props);
     this.state={
       possible_books: [],
+      possible_editions:[],
       entryState: 'out',
       selectedID: '',
+      selectedEdition: '',
+      price: '',
     }
     this.changeColor = this.changeColor.bind(this);
     this.resetColor = this.resetColor.bind(this);
@@ -21,8 +25,6 @@ class Sell extends Component{
     this.detectPrice = this.detectPrice.bind(this);
     this.detectFile = this.detectFile.bind(this);
     this.post = this.post.bind(this);
-    this.dropDownOnClick = this.dropDownOnClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
   componentWillMount(){
     const { cookies } = this.props;
@@ -38,6 +40,7 @@ class Sell extends Component{
             text: item.BookName,
             key: item.BookID,
             value: item.BookID,
+            edition: item.CurrentEdition,
           })
           console.log(arr);
         });
@@ -82,29 +85,32 @@ class Sell extends Component{
     this.setState({file: e.target.files[0]});
   }
 
-  dropDownOnClick(e){
-    console.log(e.value);
-    this.setState({selectedID: e.target.value});
-  }
-
-  handleChange (e) {
-    this.setState({ subjectName: e.target.value })
-  }
-
   post() {
     const { cookies } = this.props;
-    console.log(cookies.get('StudentID'));
+
+    const select = this.state.selectedID;
+    const price = this.state.price;
+    const edition = this.state.selectedEdition;
+    const cookie = cookies.get('StudentID');
+
+    console.log(select);
+    console.log(price);
+    console.log(cookie);
+    console.log(edition);
+
+    console.log(this.state.selectedID);
 
     let file_to_img = new FileReader();
     file_to_img.readAsDataURL(this.state.file);
+
     file_to_img.onload = function(e) {
       var rawLog = file_to_img.result;
 
       const send_data = {
-        bookID: 10,
-        sellerID: cookies.get('StudentID'),
-        price: 5000,
-        edition: 2,
+        bookID: select,
+        sellerID: cookie,
+        price: price,
+        edition: edition,
         base64: rawLog,
       };
       axios.post(SELL_URL, send_data)
@@ -112,12 +118,37 @@ class Sell extends Component{
 
         })
     };
+
   };
 
+  handleChange = (e, { value }) => {
+    this.setState({ selectedID: value });
+    const arr = this.state.possible_books.filter(function(item){
+      return item.key === value;
+    })
+    const edition = arr[0].edition;
+    var poss_edit = [];
+    var i;
+    for(i = 1; i <= edition; i++){
+      poss_edit.push({
+        text: i,
+        key: i,
+        value: i,
+      });
+    }
+    this.setState({possible_editions: poss_edit});
+  }
+
+  handleEdition = (e, { value }) => {
+    this.setState({ selectedEdition: value });
+  }
+
   render(){
+    const value = this.state.selectedID;
+    const value_edition = this.state.selectedEdition;
+
     return(
       <div style={styles.section}>
-
         <div style={styles.divStyle}></div>
 
         <div style={styles.divStyle}>
@@ -136,8 +167,23 @@ class Sell extends Component{
               fluid
               search
               selection
-              onClick={this.dropDownOnClick}
+              value={value}
+              onChange={this.handleChange}
               options={this.state.possible_books}/>
+          </div>
+
+          <div style={styles.divStyle}>
+            <label style={styles.label}>
+              Select Book's Edition
+            </label>
+            <Dropdown
+              placeholder={'Search Book Edition'}
+              fluid
+              search
+              selection
+              value={value_edition}
+              onChange={this.handleEdition}
+              options={this.state.possible_editions}/>
           </div>
 
           <div style={styles.divStyle}>
@@ -159,22 +205,24 @@ class Sell extends Component{
               fluid
               style={styles.inputStyle}
               placeholder='Enter Price'
-              type={this.detectPrice}
+              onChange={this.detectPrice}
               type='text' />
           </div>
 
           <div style={styles.divStyle}></div>
 
-          <button
-            style={{...styles.button,
-              backgroundColor: this.state.entryState === 'out' ? '#ffffff' : 'teal',
-              color: this.state.entryState === 'out' ? 'teal' : '#ffffff',}}
-            onMouseEnter={this.changeColor}
-            onMouseLeave={this.resetColor}
-            onClick={this.post}
-          >
-            SUBMIT
-          </button>
+          <Link to={`/table`}>
+            <button
+              style={{...styles.button,
+                backgroundColor: this.state.entryState === 'out' ? '#ffffff' : 'teal',
+                color: this.state.entryState === 'out' ? 'teal' : '#ffffff',}}
+              onMouseEnter={this.changeColor}
+              onMouseLeave={this.resetColor}
+              onClick={this.post}
+            >
+              SUBMIT
+            </button>
+          </Link>
         </Form>
       </div>
     )
