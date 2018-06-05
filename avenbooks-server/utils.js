@@ -8,6 +8,7 @@ const saveImageSync = (base64Data, fileName) => {
 
         const filePathDir = path.join(__dirname, 'statics');
         const filePath = path.join(filePathDir, fileName);
+        console.log(filePath);
 
         fs.writeFileSync(filePath, imageBuffer);
         const url = localConfig.staticHost + filePath;
