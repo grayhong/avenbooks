@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { SELL_URL, BOOK_URL, BUY_URL } from "../constants";
+import { SELL_URL, BOOK_URL, BUY_URL, SELL_IMAGE_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import { Header, Card, Image, Button, Confirm, Search } from 'semantic-ui-react';
 import course from '../static/images/course.png';
@@ -11,13 +11,15 @@ class Detail extends Component {
     super(props);
     this.state = {
       sellingInfo: [],
-
+      bookInfo: [],
+      /*
       bookInfo: {
         BookID: 1,
         BookName: "Introduction to DB",
         Author: "HSJ",
         CourseID: "CS360"
-      }
+      },
+      */
       /*
       sellingInfo: [
         {
@@ -69,63 +71,70 @@ class Detail extends Component {
           Price: 10000,
           Time: new Date('2018-05-26T00:49:00+09:00').toString()
         }
-      ] */
-    }
-    //this.getBookInfo = this.getBookInfo.bind(this);
-    //this.getSellingInfo = this.getSellingInfo(this);
+      ]
+      */
+    };
+
+    this.getBookInfo = this.getBookInfo.bind(this);
+    this.getSellingInfo = this.getSellingInfo.bind(this);
   }
+
+  componentWillMount() {
+    console.log(this.props);
+    const { cookies, match: { params : {bookID} } } = this.props;
+    console.log("bookId is " + bookID);
+    this.getBookInfo(bookID);
+    this.getSellingInfo(bookID);
+  }
+
 
   /* Get book informations with bookID */
   getBookInfo(bookID) {
+    console.log("getBookInfo");
     axios.get(BOOK_URL, {
       params: {
         bookID: bookID
       }
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
+    }).then((res) => {
+      this.setState({ bookInfo : res.data });
+      console.log(res);
+    }).catch((error) => {
       console.log(error);
     });
   }
 
   /* Get selling informations with bookID*/
   getSellingInfo(bookID) {
+    console.log("getSellingInfo");
     axios.get(SELL_URL, {
       params: {
         bookID: bookID
       }
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
+    }).then((res) => {
+      this.setState({sellingInfo : res.data});
+      console.log(res);
+    }).catch((error) => {
       console.log(error);
     });
   }
 
-  componentWillMount() {
-    const { cookies, bookID1 } = this.props;
-    /* TODO : Need to use bookID from props */
-    const bookID = 1;
-    this.getSellingInfo(bookID);
-  }
-
   render() {
-    const { cookies, bookID1 } = this.props;
+    const { cookies, bookID } = this.props;
     return (
       <div>
         <div>
           <Header
-            as='h2'
-            image={course}
+            style={styles.headerStyle}
+            as='h1'
             content={this.state.bookInfo.BookName + ', ' +
-            this.state.bookInfo.Author + ', ' +
-            this.state.bookInfo.CourseID}
+            this.state.bookInfo.Author}
           />
         </div>
           <Card.Group style={styles.cardGroupStyle}>
             {this.state.sellingInfo.map((info, i) => {
               return (<SellingInfo price={info.Price}
-                                   sellingId={info.SellingID}
-                                   seller={info.SellerID}
+                                   sellingID={info.SellingID}
+                                   sellerID={info.SellerID}
                                    time={info.Time}
                                    cookies={cookies}
                                    key={i}/>);
@@ -141,29 +150,29 @@ class SellingInfo extends React.Component {
 
   show = () => {
     this.setState({ open: true });
-  }
+  };
 
   /* Called when the modal when OK button */
   handleConfirm = () => {
     this.buyingReq();
-    alert ("BUY!!");
     this.setState({ open: false });
-  }
+  };
 
   /* Called when the modal is closed without clicking confirm */
   handleCancel = () => {
-    alert ("CANCELED!!");
     this.setState({ open: false });
-  }
+  };
 
   /* Request for buying */
   buyingReq() {
+    console.log(this.props.sellingID);
+    console.log(this.props.cookies.get('StudentID'));
     axios.post(BUY_URL, {
-      sellingID: this.props.seller,
+      sellingID: this.props.sellingID,
       buyerID: this.props.cookies.get('StudentID')
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
+    }).then((res) => {
+      console.log(res);
+    }).catch((error) => {
       console.log(error);
     });
   }
@@ -171,18 +180,18 @@ class SellingInfo extends React.Component {
   render() {
     return (
       <Card style={styles.detailStyle}>
-        <Image src={image1} style={styles.imageStyle} />
+        <Image src={SELL_IMAGE_URL + this.props.sellingID} style={styles.imageStyle} />
         <Card.Content>
           <Card.Header>
-            {this.props.price}won
+            Price : {this.props.price}won
           </Card.Header>
           <Card.Meta>
-        <span className='date'>
-          {this.props.time}
-        </span>
+          <spcan className='date'>
+          Uploaded : {this.props.time}
+          </spcan>
           </Card.Meta>
           <Card.Description>
-            seller: {this.props.seller}
+            Seller: {this.props.sellerID}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
@@ -192,7 +201,6 @@ class SellingInfo extends React.Component {
               open={this.state.open}
               onCancel={this.handleCancel}
               onConfirm={this.handleConfirm}
-              size='mini'
             />
           </div>
         </Card.Content>
@@ -202,6 +210,9 @@ class SellingInfo extends React.Component {
 }
 
 const styles = {
+  headerStyle: {
+    marginTop: '1.5vh',
+  },
   detailStyle: {
     width: '20vw',
     margin: '1vw'

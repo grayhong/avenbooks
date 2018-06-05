@@ -3,6 +3,10 @@ USE UNIVERSITY;
 
 INSERT INTO Student(StudentID, Password, Name, phoneNumber)
 						VALUES(20160710, '1q2w3e4r', 'Youngkyu Hong', '01035858953');
+INSERT INTO Student(StudentID, Password, Name, phoneNumber)
+            VALUES(20160140, '1q2w3e4r', 'Yoonseo Kim', '01044542659');
+INSERT INTO Student(StudentID, Password, Name, phoneNumber)
+            VALUES(20160022, 20160022, 'Hyunwoo Kang', '01024237147');
                         
 insert into DEPARTMENT values('SoC', 'Computer Science', '0423503502');
 insert into DEPARTMENT values('MAS', 'Mathematical Science', '0423502702');
@@ -37,6 +41,14 @@ insert into course values('MAS212', 'Linear Algebra', 'Sanggeun Hahn', 'MaS', 11
  
 insert into SELLING(BookID, SellerID, Edition, Price) values(1, 20160710, 6, 20000);
 insert into SELLING(BookID, SellerID, Edition, Price) values(1, 20160710, 6, 5000);
+insert into SELLING(BookID, SellerID, Edition, Price) values(2, 20160140, 6, 5000);
+insert into SELLING(BookID, SellerID, Edition, Price) values(3, 20160140, 6, 5000);
 
 
 insert into trade(Sellingid, buyerid, confirmed) values (2, 20160710, false);
+insert into trade(Sellingid, buyerid, confirmed) values (3, 20160710, false);
+insert into trade(Sellingid, buyerid, confirmed) values (3, 20160022, false);
+insert into trade(Sellingid, buyerid, confirmed) values (1, 20160140, false);
+
+
+
