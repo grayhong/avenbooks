@@ -207,7 +207,7 @@ class MyPage extends Component {
                                        bookID={info.BookID}
                                        bookName={info.BookName}
                                        price={info.Price}
-                                       time={info.SellingTime}
+                                       time={info.SellingTime.replace('T', ' ').split('.')[0]}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
                                        getMySellingInfo={this.getMySellingInfo}
@@ -237,11 +237,13 @@ class MyPage extends Component {
             {this.state.othersBuyingReq.map((info, i) => {
               return (<OthersBuyingReq bookName={info.BookName}
                                        sellerID={info.SellerID}
+                                       sellingID={info.SellingID}
                                        buyerName={info.BuyerName}
-                                       time={info.TradeTime}
+                                       time={info.TradeTime.replace('T', ' ').split('.')[0]}
                                        buyerID={info.BuyerID}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
+                                       getMySellingInfo={this.getMySellingInfo}
                                        getOthersBuyingReq={this.getOthersBuyingReq}
                                        key={i}/>);
             })}
@@ -272,7 +274,7 @@ class MyPage extends Component {
                                    sellerID={info.SellerID}
                                    sellerName={info.SellerName}
                                    price={info.Price}
-                                   time={info.TradeTime}
+                                   time={info.TradeTime.replace('T', ' ').split('.')[0]}
                                    confirmed={info.confirmed}
                                    studentID={cookies.get('StudentID')}
                                    getMyBuyingReq={this.getMyBuyingReq}
@@ -338,9 +340,6 @@ class MySellingInfo extends React.Component {
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <Link to='/sell'>
-            <Button content='Modify' color='teal'></Button>
-          </Link>
           <Button content='Delete' secondary onClick={this.show}></Button>
           <Confirm
             content="Are you sure you want to delete your sell?"
@@ -377,7 +376,8 @@ class OthersBuyingReq extends React.Component {
     axios.put(CONFIRM_URL + '/' + sellingID + '/' + buyerID
     ).then((res) => {
       console.log(res);
-      this.props.getOthersBuyingReq(this.props.studentID)
+      this.props.getMySellingInfo(this.props.studentID);
+      this.props.getOthersBuyingReq(this.props.studentID);
     }).catch((error) => {
       console.log(error);
     });

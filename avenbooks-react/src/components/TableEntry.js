@@ -8,7 +8,7 @@ class TableEntry extends Component{
   }
 
   render(){
-    const bookID = this.props.bookID;
+    const { bookID } = this.props;
     return (
       <div style={styles.boxStyle}>
         <img style={styles.imageStyle}
@@ -20,13 +20,15 @@ class TableEntry extends Component{
           <p style={styles.bookNameStyle}>{this.props.bookName}</p>
           <p style={styles.authorNameStyle}>{"by " + this.props.author}</p>
           <p style={styles.priceStyle}>{"Price"}</p>
-          <p style={styles.costStyle}> {this.props.cost === undefined ? 'No Item' : this.props.cost + "$ ~ "}</p>
+          <p style={styles.costStyle}> {this.props.cost === null ? 'No Item' : this.props.cost + "$ ~ "}</p>
         </div>
         <div style={styles.buyNowContentStyle}>
-          <p style={styles.buyNowStyle}>
-            <Link to={`/detail/${bookID}`}>
-              Buy Now >
-            </Link> </p>
+          {this.props.cost === null ? null :
+            <p style={styles.buyNowStyle}>
+              <Link to={`/detail/${bookID}`}>
+                Buy Now >
+              </Link>
+            </p>}
         </div>
       </div>
     )

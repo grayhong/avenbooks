@@ -12,6 +12,7 @@ class Detail extends Component {
     this.state = {
       sellingInfo: [],
       bookInfo: [],
+      myBuyingReq: [],
       /*
       bookInfo: {
         BookID: 1,
@@ -77,14 +78,31 @@ class Detail extends Component {
 
     this.getBookInfo = this.getBookInfo.bind(this);
     this.getSellingInfo = this.getSellingInfo.bind(this);
+    this.getMyBuyingReq = this.getMyBuyingReq.bind(this);
+  }
+
+  /* Get my buying request to others */
+  getMyBuyingReq(studentID) {
+    axios.get(BUY_URL, {
+      params: {
+        buyerID: studentID
+      }
+    }).then((res) => {
+      this.setState({ myBuyingReq : res.data })
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   componentWillMount() {
     console.log(this.props);
     const { cookies, match: { params : {bookID} } } = this.props;
+    const sid = cookies.get('StudentID');
     console.log("bookId is " + bookID);
     this.getBookInfo(bookID);
     this.getSellingInfo(bookID);
+    this.getMyBuyingReq(sid);
   }
 
 
@@ -120,6 +138,7 @@ class Detail extends Component {
 
   render() {
     const { cookies, bookID } = this.props;
+    const sid = cookies.get('StudentID');
     return (
       <div>
         <div>
@@ -135,8 +154,12 @@ class Detail extends Component {
               return (<SellingInfo price={info.Price}
                                    sellingID={info.SellingID}
                                    sellerID={info.SellerID}
-                                   time={info.Time}
+                                   time={info.SellingTime.replace('T', ' ').split('.')[0]}
                                    cookies={cookies}
+                                   bought={this.state.myBuyingReq.filter((obj) => {
+                                     return obj.SellingID === info.SellingID
+                                   }).length > 0}
+                                   myBuyingReq={() => this.getMyBuyingReq(sid)}
                                    key={i}/>);
             })}
           </Card.Group>
@@ -171,6 +194,7 @@ class SellingInfo extends React.Component {
       sellingID: this.props.sellingID,
       buyerID: this.props.cookies.get('StudentID')
     }).then((res) => {
+      this.props.myBuyingReq();
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -178,6 +202,7 @@ class SellingInfo extends React.Component {
   }
 
   render() {
+    const { bought } = this.props;
     return (
       <Card style={styles.detailStyle}>
         <Image src={SELL_IMAGE_URL + this.props.sellingID + '.jpeg'} style={styles.imageStyle} />
@@ -195,16 +220,19 @@ class SellingInfo extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <div>
-            <Button onClick={this.show}>BUY</Button>
-            <Confirm
-              content="Are you sure you want to delete buy this book?"
-              open={this.state.open}
-              onCancelColor='teal'
-              onCancel={this.handleCancel}
-              onConfirm={this.handleConfirm}
-            />
-          </div>
+          {bought ? null :
+            (
+              <div>
+                <Button onClick={this.show}>BUY</Button>
+                <Confirm
+                  content="Are you sure you want to delete buy this book?"
+                  open={this.state.open}
+                  onCancelColor='teal'
+                  onCancel={this.handleCancel}
+                  onConfirm={this.handleConfirm}
+                />
+              </div>
+            )}
         </Card.Content>
       </Card>
     )
