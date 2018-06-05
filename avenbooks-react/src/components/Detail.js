@@ -80,11 +80,12 @@ class Detail extends Component {
   }
 
   componentWillMount() {
-    const { cookies, bookID1 } = this.props;
-    /* TODO : Need to use bookID from props */
-    const bookID = 1;
-    //this.getBookInfo(bookID);
-    //this.getSellingInfo(bookID);
+    console.log(this.props);
+    const { cookies, bookID } = this.props;
+     console.log("bookId is " + bookID);
+    //const bookID = 1;
+    this.getBookInfo(bookID);
+    this.getSellingInfo(bookID);
   }
 
 
@@ -119,8 +120,7 @@ class Detail extends Component {
   }
 
   render() {
-    // TODO Get bookID from props
-    const { cookies, bookID1 } = this.props;
+    const { cookies, bookID } = this.props;
     return (
       <div>
         <div>

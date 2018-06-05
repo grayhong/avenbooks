@@ -178,7 +178,7 @@ class MyPage extends Component {
               {cookies.get('StudentID')}
             </Card.Meta>
             <Card.Description>
-              {cookies.get('PhoneNumber')} CS
+              {cookies.get('PhoneNumber')}
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
