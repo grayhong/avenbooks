@@ -79,22 +79,21 @@ class Detail extends Component {
   componentWillMount() {
     const { cookies, bookID1 } = this.props;
     /* TODO : Need to use bookID from props */
-    //this.getBookInfo(bookID);
     const bookID = 1;
+    //this.getBookInfo(bookID);
     //this.getSellingInfo(bookID);
   }
 
 
   /* Get book informations with bookID */
   getBookInfo(bookID) {
-    // TODO API GET CALL
     console.log("getBookInfo");
     axios.get(BOOK_URL, {
       params: {
         bookID: bookID
       }
     }).then((res) => {
-      this.setState({bookInfo : res.data});
+      this.setState({ bookInfo : res.data });
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -103,7 +102,6 @@ class Detail extends Component {
 
   /* Get selling informations with bookID*/
   getSellingInfo(bookID) {
-    // TODO API GET CALL
     console.log("getSellingInfo");
     axios.get(SELL_URL, {
       params: {
@@ -134,8 +132,8 @@ class Detail extends Component {
           <Card.Group style={styles.cardGroupStyle}>
             {this.state.sellingInfo.map((info, i) => {
               return (<SellingInfo price={info.Price}
-                                   sellingId={info.SellingID}
-                                   seller={info.SellerID}
+                                   sellingID={info.SellingID}
+                                   sellerID={info.SellerID}
                                    time={info.Time}
                                    cookies={cookies}
                                    key={i}/>);
@@ -166,11 +164,11 @@ class SellingInfo extends React.Component {
 
   /* Request for buying */
   buyingReq() {
-    console.log(this.props.seller);
     console.log(this.props.sellingID);
+    console.log(this.props.cookies.get('StudentID'));
     axios.post(BUY_URL, {
-      sellingID: 0,
-      buyerID: 20160140
+      sellingID: this.props.sellingID,
+      buyerID: this.props.cookies.get('StudentID')
     }).then((res) => {
       console.log(res);
     }).catch((error) => {
@@ -192,7 +190,7 @@ class SellingInfo extends React.Component {
           </spcan>
           </Card.Meta>
           <Card.Description>
-            Seller: {this.props.seller}
+            Seller: {this.props.sellerID}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>

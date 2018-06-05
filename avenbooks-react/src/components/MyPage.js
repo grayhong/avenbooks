@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { SELL_URL, BUY_URL, CONFIRM_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import {Link} from 'react-router-dom';
 import { Table, Header, Label, Button, Card, Image, Confirm } from 'semantic-ui-react';
 import course from '../static/images/course.png';
-import {CONFIRM_URL, BUY_URL} from "../constants";
-
 
 class MyPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /*
+
       mySellingInfo: [],
       othersBuyingReq: [],
       myBuyingReq: [],
-      */
+
+      /*
       mySellingInfo: [
         {
           SellingID: 1,
@@ -106,7 +106,9 @@ class MyPage extends Component {
           Confirmed: false
         },
       ]
-    }
+      */
+    };
+
     this.getMySellingInfo = this.getMySellingInfo.bind(this);
     this.getOthersBuyingReq = this.getOthersBuyingReq.bind(this);
     this.getMyBuyingReq = this.getMyBuyingReq.bind(this);
@@ -114,26 +116,26 @@ class MyPage extends Component {
 
   /* Get my selling infomations */
   getMySellingInfo(studentID) {
-    // TODO GET API CALL
-    axios.get(CONFIRM_URL, {
+    axios.get(SELL_URL, {
       params: {
         sellerID: studentID
       }
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
+    }).then((res) => {
+      this.setState({ mySellingInfo : res.data });
+      console.log(res);
+    }).catch((error) => {
       console.log(error);
     });
   }
 
   /* Get others buying requests to mine */
   getOthersBuyingReq(studentID) {
-    // TODO GET API CALL
     axios.get(BUY_URL, {
       params: {
         sellerID: studentID
       }
     }).then((res) => {
+      this.setState({ othersBuyingReq : res.data })
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -142,12 +144,12 @@ class MyPage extends Component {
 
   /* Get my buying request to others */
   getMyBuyingReq(studentID) {
-    // TODO GET API CALL
     axios.get(BUY_URL, {
       params: {
         buyerID: studentID
       }
     }).then((res) => {
+      this.setState({ myBuyingReq : res.data })
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -288,7 +290,7 @@ class MySellingInfo extends React.Component {
 
   /* Called when the modal when OK button */
   handleConfirm = () => {
-    this.deleteSellingInfo();
+    this.deleteSellingInfo(this.props.sellingID);
     this.setState({ open: false });
   };
 
@@ -298,8 +300,13 @@ class MySellingInfo extends React.Component {
   };
 
   /* Delete current selling info */
-  deleteSellingInfo(e) {
-    /* TODO DELETE API CALL */
+  deleteSellingInfo(sellingID) {
+    axios.delete(BUY_URL + '/' + sellingID
+    ).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
     console.log("aaa");
   }
 
@@ -349,7 +356,7 @@ class OthersBuyingReq extends React.Component {
   /* Called when the modal when OK button in Confirm */
   handleConfirm = () => {
     console.log("confirm others buying req");
-    this.confirmOthersBuyingReq();
+    this.confirmOthersBuyingReq(this.props.sellingID, this.props.buyerID);
     this.setState({ open: false });
   };
 
@@ -358,8 +365,13 @@ class OthersBuyingReq extends React.Component {
     this.setState({ open: false });
   };
 
-  confirmOthersBuyingReq(e) {
-    // TODO PUT API CALL
+  confirmOthersBuyingReq(sellingID, buyerID) {
+    axios.put(CONFIRM_URL + '/' + sellingID + '/' + buyerID
+    ).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   render () {
@@ -411,7 +423,7 @@ class MyBuyingReq extends React.Component {
   /* Called when the modal when OK button in Confirm */
   handleDeleteConfirm = () => {
     console.log("delete my buying req");
-    this.deleteMyBuyingReq();
+    this.deleteMyBuyingReq(this.props.sellingID, this.props.buyerID);
     this.setState({ open: false });
   };
 
@@ -420,8 +432,13 @@ class MyBuyingReq extends React.Component {
     this.setState({ open: false });
   };
 
-  deleteMyBuyingReq(e) {
-    // TODO DELETE API CALL
+  deleteMyBuyingReq(sellingID, buyerID) {
+    axios.delete(BUY_URL + '/' + sellingID + '/' + buyerID
+    ).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   render () {
