@@ -46,7 +46,7 @@ router.post('/sell', async (req, res) => {
   const getID = 'SELECT LAST_INSERT_ID();';
 
   try {
-    id = await query(getID);
+    id = await query(getID, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
