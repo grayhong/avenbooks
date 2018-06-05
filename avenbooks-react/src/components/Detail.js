@@ -87,6 +87,7 @@ class Detail extends Component {
 
   /* Get book informations with bookID */
   getBookInfo(bookID) {
+    // TODO API GET CALL
     console.log("getBookInfo");
     axios.get(BOOK_URL, {
       params: {
@@ -102,6 +103,7 @@ class Detail extends Component {
 
   /* Get selling informations with bookID*/
   getSellingInfo(bookID) {
+    // TODO API GET CALL
     console.log("getSellingInfo");
     axios.get(SELL_URL, {
       params: {

@@ -13,7 +13,8 @@ class MyPage extends Component {
     this.state = {
       /*
       mySellingInfo: [],
-      buyingReq: [],
+      othersBuyingReq: [],
+      myBuyingReq: [],
       */
       mySellingInfo: [
         {
@@ -105,13 +106,15 @@ class MyPage extends Component {
           Confirmed: false
         },
       ]
-
     }
+    this.getMySellingInfo = this.getMySellingInfo.bind(this);
+    this.getOthersBuyingReq = this.getOthersBuyingReq.bind(this);
+    this.getMyBuyingReq = this.getMyBuyingReq.bind(this);
   }
 
   /* Get my selling infomations */
   getMySellingInfo(studentID) {
-    /* TODO : which url to use here? */
+    // TODO GET API CALL
     axios.get(CONFIRM_URL, {
       params: {
         sellerID: studentID
@@ -123,17 +126,32 @@ class MyPage extends Component {
     });
   }
 
-  /* Get buying reqests*/
-  getBuyingReq(studentID) {
+  /* Get others buying requests to mine */
+  getOthersBuyingReq(studentID) {
+    // TODO GET API CALL
     axios.get(BUY_URL, {
       params: {
         sellerID: studentID
       }
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
+    }).then((res) => {
+      console.log(res);
+    }).catch((error) => {
       console.log(error);
     });
+  }
+
+  /* Get my buying request to others */
+  getMyBuyingReq(studentID) {
+    // TODO GET API CALL
+    axios.get(BUY_URL, {
+      params: {
+        buyerID: studentID
+      }
+    }).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   componentWillMount() {
@@ -141,7 +159,8 @@ class MyPage extends Component {
     const studentID = cookies.get('StudentID');
     console.log(studentID);
     this.getMySellingInfo(studentID);
-    this.getBuyingReq(studentID);
+    this.getOthersBuyingReq(studentID);
+    this.getMyBuyingReq(studentID);
   }
 
   render() {
@@ -150,7 +169,6 @@ class MyPage extends Component {
       <div>
         <Card centered>
           <Card.Content>
-            <Image floated='right' size='mini' src='/assets/images/avatar/large/steve.jpg' />
             <Card.Header>
               {cookies.get('Name')}
             </Card.Header>
@@ -281,7 +299,7 @@ class MySellingInfo extends React.Component {
 
   /* Delete current selling info */
   deleteSellingInfo(e) {
-    /* TODO delete api call*/
+    /* TODO DELETE API CALL */
     console.log("aaa");
   }
 
@@ -341,7 +359,7 @@ class OthersBuyingReq extends React.Component {
   };
 
   confirmOthersBuyingReq(e) {
-
+    // TODO PUT API CALL
   }
 
   render () {
@@ -403,7 +421,7 @@ class MyBuyingReq extends React.Component {
   };
 
   deleteMyBuyingReq(e) {
-
+    // TODO DELETE API CALL
   }
 
   render () {
