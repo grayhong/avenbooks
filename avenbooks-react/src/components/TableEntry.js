@@ -8,20 +8,23 @@ class TableEntry extends Component{
   }
 
   render(){
+    const bookid = this.props.bookID;
     return (
       <div style={styles.boxStyle}>
-        <img style={styles.imageStyle} src={this.props.imgSrc} alt="professor" />
+        <img style={styles.imageStyle}
+             src={'http://ec2-13-125-252-219.ap-northeast-2.compute.amazonaws.com/static/book_' + bookid + '.jpeg'}
+        />
         <div style={styles.contentStyle}>
           <h3 style={styles.subjectNameStyle}>{this.props.subjectName}</h3>
           <p style={styles.subjectIDStyle}>{this.props.subjectID}</p>
           <p style={styles.bookNameStyle}>{this.props.bookName}</p>
           <p style={styles.authorNameStyle}>{"by " + this.props.author}</p>
           <p style={styles.priceStyle}>{"Price"}</p>
-          <p style={styles.costStyle}>{this.props.cost + "$ ~ "}</p>
+          <p style={styles.costStyle}> {this.props.cost === undefined ? 'No Item' : this.props.cost + "$ ~ "}</p>
         </div>
         <div style={styles.buyNowContentStyle}>
           <p style={styles.buyNowStyle}>
-            <Link to='/detail' params={{}}>
+            <Link to='/detail' params={{bookID: this.props.bookID}}>
               Buy Now >
             </Link> </p>
         </div>

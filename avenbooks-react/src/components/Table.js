@@ -11,58 +11,8 @@ class Table extends Component {
     super(props);
     this.state = {
       input: '',
-      data: [
-        {
-          imageSrc: {Logo},
-          bookName: 'Introduction to DB',
-          subjectName: 'Intro to DB',
-          subjectID: 'CS360',
-          author: 'Hyun Sun Ju',
-          cost: '2000',
-        },
-        {
-          imageSrc: {Logo},
-          bookName: 'Structure and Interpretation of Computer Program',
-          subjectName: 'Programming Principles',
-          subjectID: 'CS220',
-          author: 'Hyun Sun Ju',
-          cost: '3000',
-        },
-        {
-          imageSrc: {Logo},
-          bookName: 'How to write C code',
-          subjectName: 'Special Lecture on Computer Science',
-          subjectID: 'CS492',
-          author: 'Hyun Sun Ju',
-          cost: '1500',
-        },
-      ],
-      searchData: [
-        {
-          imageSrc: {Logo},
-          bookName: 'Introduction to DB',
-          subjectName: 'Intro to DB',
-          subjectID: 'CS360',
-          author: 'Hyun Sun Ju',
-          cost: '2000',
-        },
-        {
-          imageSrc: {Logo},
-          bookName: 'Structure and Interpretation of Computer Program',
-          subjectName: 'Programming Principles',
-          subjectID: 'CS220',
-          author: 'Hyun Sun Ju',
-          cost: '3000',
-        },
-        {
-          imageSrc: {Logo},
-          bookName: 'How to write C code',
-          subjectName: 'Special Lecture on Computer Science',
-          subjectID: 'CS492',
-          author: 'Hyun Sun Ju',
-          cost: '1500',
-        },
-      ],
+      data: [],
+      searchData: [],
     }
 
     this.detectInput = this.detectInput.bind(this);
@@ -73,18 +23,18 @@ class Table extends Component {
     this.setState({ input: e.target.value });
     const { data: data } = this.state;
 
-    const ignoreCase = String(e.target.value).toLowerCase()
+    const ignoreCase = e.target.value === undefined? " " : String(e.target.value).toLowerCase()
     this.setState({
       searchData: data.filter(function (item) {
-        return item.bookName.toLowerCase().includes(ignoreCase)
-          || item.subjectName.toLowerCase().includes(ignoreCase)
-          || item.subjectID.toLowerCase().includes(ignoreCase);
+        return item.BookName.toLowerCase().includes(ignoreCase)
+          || item.CourseName.toLowerCase().includes(ignoreCase)
+          || item.CourseID.toLowerCase().includes(ignoreCase);
       })
     })
   }
 
   afterSearch(e){
-    const { data: data, searchData: originData, input } = this.state;
+    const { data: data, input } = this.state;
     this.setState({
       searchData: input === undefined ? data: data.filter(function(item) {
         return item.bookName === input || item.subjectName === input;
@@ -97,7 +47,8 @@ class Table extends Component {
     console.log(cookies.get('StudentID'));
     axios.get(BOARD_URL)
       .then((res) => {
-        console.log(res.couresID);
+        console.log(res.data);
+        this.setState({ data : res.data, searchData: res.data });
       })
       .catch((e) => console.log(e));
   }
@@ -107,15 +58,17 @@ class Table extends Component {
   }
 
   render() {
-    const entry = this.state.searchData.map(function(item) {
+    const entry = this.state.searchData.map(function(item, i) {
       return (
         <TableEntry
-          bookName={item.bookName}
-          subjectName={item.subjectName}
-          subjectID={item.subjectID}
+          key={i}
+          bookName={item.BookName}
+          subjectName={item.CourseName}
+          subjectID={item.CourseID}
+          bookID={item.BookID}
           cost={item.cost}
           imgSrc={Logo}
-          author={item.author}
+          author={item.Author}
         />
       )
     });
