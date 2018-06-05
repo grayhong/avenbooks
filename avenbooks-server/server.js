@@ -21,8 +21,8 @@ const staticPath = '/static';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
-// app.use(staticPath, express.static(path.join(__dirname, 'statics')));
-app.use(express.static('statics'));
+app.use(staticPath, express.static(path.join(__dirname, 'statics')));
+// app.use(express.static(__dirname + '/statics'));
 
 
 /* Routes settings. */
