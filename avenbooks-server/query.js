@@ -8,6 +8,7 @@ const query = (sql, has_return = false) => {
     connection.getConnection((err, con) => {
       if (err) throw err;
       console.log("Connected!");
+      console.log(sql);
       con.query(sql, (err, result, fields) => {
         if (err) throw err;
         console.log("Success!");
