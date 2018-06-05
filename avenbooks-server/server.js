@@ -22,7 +22,7 @@ app.use(express.static('static'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
-app.use(staticPath, express.static('./statics'));
+app.use(staticPath, express.static(path.posix.join(__dirname, 'statics'));
 
 
 /* Routes settings. */
