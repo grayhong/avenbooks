@@ -8,11 +8,11 @@ class TableEntry extends Component{
   }
 
   render(){
-    const bookid = this.props.bookID;
+    const bookID = this.props.bookID;
     return (
       <div style={styles.boxStyle}>
         <img style={styles.imageStyle}
-             src={'http://ec2-13-125-252-219.ap-northeast-2.compute.amazonaws.com/static/book_' + bookid + '.jpeg'}
+             src={'http://ec2-13-125-252-219.ap-northeast-2.compute.amazonaws.com/static/book_' + bookID + '.jpeg'}
         />
         <div style={styles.contentStyle}>
           <h3 style={styles.subjectNameStyle}>{this.props.subjectName}</h3>
@@ -24,7 +24,7 @@ class TableEntry extends Component{
         </div>
         <div style={styles.buyNowContentStyle}>
           <p style={styles.buyNowStyle}>
-            <Link to='/detail' params={{bookID: this.props.bookID}}>
+            <Link to={`/detail/${bookID}`}>
               Buy Now >
             </Link> </p>
         </div>

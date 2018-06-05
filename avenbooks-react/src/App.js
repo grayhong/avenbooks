@@ -43,7 +43,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/sell" component={Sell} />
               <Route exact path="/table" component={Table} />
-              <Route exact path="/detail" component={Detail} />
+              <Route exact path="/detail/:bookID" component={Detail} />
               <Route exact path="/mypage" component={MyPage} />
               <Redirect from="/" to="/" />
             </Switch>

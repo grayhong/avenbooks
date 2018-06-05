@@ -81,9 +81,8 @@ class Detail extends Component {
 
   componentWillMount() {
     console.log(this.props);
-    const { cookies, bookID } = this.props;
-     console.log("bookId is " + bookID);
-    //const bookID = 1;
+    const { cookies, match: { params : {bookID} } } = this.props;
+    console.log("bookId is " + bookID);
     this.getBookInfo(bookID);
     this.getSellingInfo(bookID);
   }
