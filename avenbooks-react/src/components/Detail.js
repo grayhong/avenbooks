@@ -11,14 +11,16 @@ class Detail extends Component {
     super(props);
     this.state = {
       sellingInfo: [],
-
+      bookInfo: [],
+      /*
       bookInfo: {
         BookID: 1,
         BookName: "Introduction to DB",
         Author: "HSJ",
         CourseID: "CS360"
       },
-
+      */
+      /*
       sellingInfo: [
         {
           SellingID: 1,
@@ -70,6 +72,7 @@ class Detail extends Component {
           Time: new Date('2018-05-26T00:49:00+09:00').toString()
         }
       ]
+      */
     };
 
     this.getBookInfo = this.getBookInfo.bind(this);
@@ -179,7 +182,7 @@ class SellingInfo extends React.Component {
   render() {
     return (
       <Card style={styles.detailStyle}>
-        <Image src={SELLIMAGE_URL + this.props.sellingID} style={styles.imageStyle} />
+        <Image src={SELL_IMAGE_URL + this.props.sellingID} style={styles.imageStyle} />
         <Card.Content>
           <Card.Header>
             Price : {this.props.price}won
