@@ -5,5 +5,5 @@ CREATE TRIGGER `finish_after_confirm`
   FOR EACH ROW 
   BEGIN
     UPDATE SELLING SET FINISHED=true 
-    WHERE SellingID = OLD.SellingID && BuyerID = OLD.BuyerID
+    WHERE SellingID = OLD.SellingID && BuyerID = OLD.BuyerID;
   END;
