@@ -19,8 +19,8 @@ const query = (sql, has_return = false) => {
         });
         con.release();
       }
-      catch {
-        reject(-1);
+      catch (err){
+        reject(err);
       }
     });
   });
