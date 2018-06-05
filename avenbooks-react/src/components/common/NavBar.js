@@ -25,7 +25,7 @@ export default class NavBar extends Component {
 
 const styles = {
   navBarStyle : {
-    backgroundColor: '#1453a5',
+    backgroundColor: 'teal',
     position: 'fixed',
     width: '100%',
     zIndex: 1000,
