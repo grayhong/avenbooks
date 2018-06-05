@@ -10,18 +10,16 @@ config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 
-/* Connect to MySQL server. */
-// const db = mongoose.connection;
-// db.on('error', console.error);
-// db.once('open', () => {
-//   console.log('Connected to mongod server');
-// });
-// mongoose.connect('mongodb://localhost/paperplane');
+// const staticPath = path.posix.join(config.assetsPublicPath, config.assetsSubDirectory);
+
 
 /* Middleware settings. */
 app.use(express.static('static'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(staticPath, express.static('./static'));
+
 
 /* Routes settings. */
 addRoutes(app);
