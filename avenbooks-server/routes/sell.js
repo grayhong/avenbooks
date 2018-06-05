@@ -52,11 +52,12 @@ router.post('/sell', async (req, res) => {
   }
 
   console.log(id);
-  const fileName = `sell_${id[0]['ID']}.jpg`;
+  const fileName = `sell_${id[0]['ID']}.jpeg`;
   
   try {
     url = await saveImageSync(base64, fileName);
   } catch (err) {
+    console.log('erororor')
     return res.status(500).end(err.message);
   }
 
