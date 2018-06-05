@@ -22,7 +22,7 @@ router.get('/buy', async(req, res) => {
     sql = `select SellingID, BookName, StudentID as SellerID, Time, Price, PhoneNumber, Name as SellerName, Confirmed \
             from student natural join (select SellingID, BookName, SellerID as StudentID, Time, Price, Confirmed \
             from book as st natural join (select * from selling as t natural join \
-            (select * from trade where buyerid=${parseInt(sellerID)}) as s) as ut) as bt order by Time`;
+            (select * from trade where buyerid=${parseInt(buyerID)}) as s) as ut) as bt order by Time`;
   }
   console.log(sql);
   
