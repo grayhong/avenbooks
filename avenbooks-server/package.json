@@ -10,7 +10,7 @@
     "build-server": "babel -d ./build . -s",
     "build": "npm run clean && npm run build-server",
     "prod": "node ./build/index.js",
-    "debug": "node --debug ./build/index.js",
+    "debug": "node --debug ./build/index.js"
   },
   "repository": {
     "type": "git",
