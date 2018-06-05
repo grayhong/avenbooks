@@ -6,12 +6,8 @@ const router = express.Router();
 router.get('/buy', async(req, res) => {
   const { sellerID='', buyerID='' } = req.query;
 
-  // const sql = `select * from trade as t inner join \
-  //               ( select * from selling where sellerid=${parseInt(sellerID)} ) as s \
-  //               where s.sellingid = t.sellingid;`;
-
   let sql, buy_list;
-  
+
   if (sellerID) {
     sql = `select SellingID, BookName, StudentID as BuyerID, Time, Price, PhoneNumber, Name as BuyerName, Finished \
             from student natural join (select SellingID, BookName, BuyerID as StudentID, Time, Price, Finished  \
