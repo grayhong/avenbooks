@@ -19,7 +19,7 @@ const query = (sql, has_return = false) => {
         });
         con.release();
       } catch{
-        resolve(-1);
+        reject(-1);
       }
     });
   });
