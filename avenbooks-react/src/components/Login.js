@@ -4,6 +4,7 @@ import {LOGIN_URL} from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import {Link} from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import Book from 'react-icons/lib/go/book';
 
 
 class Login extends Component {
@@ -44,7 +45,7 @@ class Login extends Component {
           >
             <Grid.Column style={{ maxWidth: 450 }}>
               <Header as='h2' color='teal' textAlign='center'>
-                Log-in to your account
+                <Book style={styles.iconStyle}/> Log-in to your account
               </Header>
               <Form onSubmit={(e) => this.loginUser(e)} size='large'>
                 <Segment stacked>
@@ -147,6 +148,11 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  iconStyle: {
+    height: '25px',
+    width: '25px',
+    marginBottom: '3px'
   }
 };
 
