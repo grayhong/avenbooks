@@ -13,8 +13,9 @@ const app = express();
 
 // const staticPath = path.posix.join(config.assetsPublicPath, config.assetsSubDirectory);
 
-const staticPath = path.posix.join(__dirname, 'statics');
-console.log(staticPath);
+// const staticPath = path.posix.join(__dirname, 'statics');
+// const staticPath = '/static';
+// console.log(staticPath);
 
 /* Middleware settings. */
 app.use(express.static('static'));
