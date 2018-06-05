@@ -18,7 +18,6 @@ const staticPath = '/static';
 // console.log(staticPath);
 
 /* Middleware settings. */
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(staticPath, express.static(path.join(__dirname, 'statics')));
