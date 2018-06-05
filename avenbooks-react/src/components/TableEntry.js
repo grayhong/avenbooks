@@ -8,7 +8,7 @@ class TableEntry extends Component{
   }
 
   render(){
-    const bookID = this.props.bookID;
+    const { bookID } = this.props;
     return (
       <div style={styles.boxStyle}>
         <img style={styles.imageStyle}

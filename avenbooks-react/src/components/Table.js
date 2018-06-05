@@ -4,7 +4,7 @@ import {Form} from 'semantic-ui-react';
 import { withCookies, Cookies } from 'react-cookie';
 import Logo from '../static/icons/logo.svg';
 import TableEntry from './TableEntry';
-import {TABLE_URL, LOGIN_URL, BOARD_URL} from "../constants";
+import {TABLE_URL, LOGIN_URL, BOARD_URL, BUY_URL} from "../constants";
 
 class Table extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class Table extends Component {
       input: '',
       data: [],
       searchData: [],
+      myBuyingReq: [],
     }
 
     this.detectInput = this.detectInput.bind(this);
@@ -43,8 +44,6 @@ class Table extends Component {
   }
 
   componentWillMount() {
-    const { cookies } = this.props;
-    console.log(cookies.get('StudentID'));
     axios.get(BOARD_URL)
       .then((res) => {
         console.log(res.data);
