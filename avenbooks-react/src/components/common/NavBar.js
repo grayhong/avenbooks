@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Plane from 'react-icons/lib/fa/paper-plane';
+import Book from 'react-icons/lib/go/book';
 import {Link} from 'react-router-dom';
 
 import NavBarItem from './NavBarItem';
@@ -9,10 +9,10 @@ export default class NavBar extends Component {
     return (
         <div style={styles.navBarStyle}>
           <div style={styles.containerStyle}>
-            <NavBarItem title to="/table"><Plane/>&nbsp;AVENBOOKS</NavBarItem>
+            <NavBarItem title to="/table"><Book style={styles.iconStyle}/>&nbsp;AVENBOOKS</NavBarItem>
             <NavBarItem to="/hi1">
               <Link to='/sell' params={{}} style={styles.linkStyle}>
-                SELL
+                Sell
               </Link>
             </NavBarItem>
             <NavBarItem to="/profile">
@@ -41,5 +41,10 @@ const styles = {
   },
   linkStyle: {
     color: 'white',
+  },
+  iconStyle: {
+    height: '25px',
+    width: '25px',
+    marginBottom: '3px'
   }
 };
