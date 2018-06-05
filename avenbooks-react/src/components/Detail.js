@@ -180,7 +180,7 @@ class SellingInfo extends React.Component {
   render() {
     return (
       <Card style={styles.detailStyle}>
-        <Image src={SELL_IMAGE_URL + this.props.sellingID} style={styles.imageStyle} />
+        <Image src={SELL_IMAGE_URL + this.props.sellingID + '.jpeg'} style={styles.imageStyle} />
         <Card.Content>
           <Card.Header>
             Price : {this.props.price}won
