@@ -37,7 +37,7 @@ const styles = {
   boxStyle: {
     border: '0.1rem solid #EDEDED',
     borderRadius: '0.1rem',
-    width: '80%',
+    width: '60%',
     height: '18rem',
     margin: 'auto',
     marginBottom: '4rem',
@@ -57,9 +57,10 @@ const styles = {
     width: '10%',
   },
   imageStyle: {
-    width: '30%',
+    width: '20%',
     height: '18rem',
     display: 'inline-block',
+    objectFit: 'cover',
   },
   subjectNameStyle: {
     margin: '0.2rem',
