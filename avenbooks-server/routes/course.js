@@ -5,11 +5,10 @@ const router = express.Router();
 
 router.get('/course', async (req, res) => {
 
-  const sql = `select *  from course natural join\ 
-                ( select * from book as b left join\ 
-                  ( select bookid as s_bookid, min(price) as min_price \
-                    from selling group by bookid ) as s \
-                  on b.bookid = s.s_bookid ) as c`;
+  const sql = `select * from course natural join\ 
+                ( select * from book as b natural join\ 
+                  ( select bookid, min(price) as min_price \
+                    from selling group by bookid ) as s) as c`;
   console.log(sql)
   let book_list;
   try {
