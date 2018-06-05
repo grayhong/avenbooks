@@ -9,6 +9,7 @@ router.get('/buy', async(req, res) => {
   const sql = `select * from trade as t inner join \
                 ( select * from selling where sellerid=${parseInt(sellerID)} ) as s \
                 where s.sellingid = t.sellingid;`;
+  console.log(sql)
   
   try {
     const buy_list = await query(sql, true);
@@ -38,6 +39,7 @@ router.post('/buy', async (req, res) => {
   
   const sql = `INSERT INTO TRADE (SellingID, BuyerID, Confirmed)\
                           VALUES (${parseInt(sellingID)}, ${parseInt(buyerID)}, false)`
+  console.log(sql)
   
   try {
     await query(sql);

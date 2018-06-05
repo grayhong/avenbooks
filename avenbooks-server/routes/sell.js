@@ -7,6 +7,7 @@ router.get('/sell', async (req, res) => {
   const { bookID = '', sellerID = '' } = req.query;
 
   let sql = '';
+  let sell_list;
 
   if (sellerID) {
     sql = `SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}`;
