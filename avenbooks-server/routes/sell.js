@@ -11,7 +11,7 @@ router.get('/sell', async (req, res) => {
   let sell_list;
 
   if (sellerID) {
-    sql = `SELECT * FROM BOOK natural join (SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}) as a order by time`;
+    sql = `SELECT * FROM BOOK natural join (SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}) as a order by SellingTime`;
   }
   else if (bookID) {
     sql = `SELECT * FROM SELLING WHERE BookID=${parseInt(bookID)} ORDER BY Price`;
@@ -52,11 +52,12 @@ router.post('/sell', async (req, res) => {
   }
 
   console.log(id);
-  const fileName = `sell_${id['ID']}.jpg`;
+  const fileName = `sell_${id[0]['ID']}.jpeg`;
   
   try {
     url = await saveImageSync(base64, fileName);
   } catch (err) {
+    console.log('erororor')
     return res.status(500).end(err.message);
   }
 
@@ -64,6 +65,7 @@ router.post('/sell', async (req, res) => {
 });
 
 router.delete('/sell/:sellingID', async (req, res) => {
+  const { sellingID } = req.params;
   const sql = `DELETE FROM Selling where SellingID=${sellingID};`
 
   try {

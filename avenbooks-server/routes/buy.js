@@ -9,16 +9,16 @@ router.get('/buy', async(req, res) => {
   let sql, buy_list;
 
   if (sellerID) {
-    sql = `select SellingID, BookName, StudentID as BuyerID, TradingTime, Price, PhoneNumber, Name as BuyerName, Finished, Confirmed \
-            from student natural join (select SellingID, BookName, BuyerID as StudentID, TradingTime, Price, Finished, Confirmed  \
+    sql = `select SellingID, BookName, StudentID as BuyerID, TradeTime, Price, PhoneNumber, Name as BuyerName, Finished, Confirmed \
+            from student natural join (select SellingID, BookName, BuyerID as StudentID, TradeTime, Price, Finished, Confirmed  \
             from book as st natural join (select * from trade as t natural join \
-            ( select * from selling where sellerid=${parseInt(sellerID)}) as s) as t) as bt order by TradingTime`;
+            ( select * from selling where sellerid=${parseInt(sellerID)}) as s) as t) as bt order by TradeTime`;
 
   } else {
-    sql = `select SellingID, BookName, StudentID as SellerID, TradingTime, Price, PhoneNumber, Name as SellerName, Finished, Confirmed \
-            from student natural join (select SellingID, BookName, SellerID as StudentID, TradingTime, Price, Finished, Confirmed \
+    sql = `select SellingID, BookName, StudentID as SellerID, TradeTime, Price, PhoneNumber, Name as SellerName, Finished, Confirmed \
+            from student natural join (select SellingID, BookName, SellerID as StudentID, TradeTime, Price, Finished, Confirmed \
             from book as st natural join (select * from selling as t natural join \
-            (select * from trade where buyerid=${parseInt(buyerID)}) as s) as ut) as bt order by TradingTime`;
+            (select * from trade where buyerid=${parseInt(buyerID)}) as s) as ut) as bt order by TradeTime`;
   }
   console.log(sql);
   
@@ -32,6 +32,7 @@ router.get('/buy', async(req, res) => {
 });
 
 router.put('/confirm/:sellingID/:buyerID', async (req, res) => {
+  const { sellingID, buyerID } = req.params;
   
   const sql = `UPDATE TRADE SET Confirmed=true WHERE SellingID=${parseInt(sellingID)} && BuyerID = ${parseInt(buyerID)}`;
   
@@ -61,6 +62,7 @@ router.post('/buy', async (req, res) => {
 });
 
 router.delete('/buy/:sellingID/:buyerID', async (req, res) => {
+  const { sellingID, buyerID } = req.params;
   const sql = `DELETE FROM TRADE where SellingID=${sellingID} && BuyerID=${buyerID}`
 
   try {
