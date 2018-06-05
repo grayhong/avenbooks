@@ -207,7 +207,7 @@ class MyPage extends Component {
                                        bookID={info.BookID}
                                        bookName={info.BookName}
                                        price={info.Price}
-                                       time={info.SellingTime}
+                                       time={info.SellingTime.replace('T', ' ').split('.')[0]}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
                                        getMySellingInfo={this.getMySellingInfo}
@@ -239,7 +239,7 @@ class MyPage extends Component {
                                        sellerID={info.SellerID}
                                        sellingID={info.SellingID}
                                        buyerName={info.BuyerName}
-                                       time={info.TradeTime}
+                                       time={info.TradeTime.replace('T', ' ').split('.')[0]}
                                        buyerID={info.BuyerID}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
@@ -274,7 +274,7 @@ class MyPage extends Component {
                                    sellerID={info.SellerID}
                                    sellerName={info.SellerName}
                                    price={info.Price}
-                                   time={info.TradeTime}
+                                   time={info.TradeTime.replace('T', ' ').split('.')[0]}
                                    confirmed={info.confirmed}
                                    studentID={cookies.get('StudentID')}
                                    getMyBuyingReq={this.getMyBuyingReq}
@@ -340,9 +340,6 @@ class MySellingInfo extends React.Component {
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <Link to='/sell'>
-            <Button content='Modify' color='teal'></Button>
-          </Link>
           <Button content='Delete' secondary onClick={this.show}></Button>
           <Confirm
             content="Are you sure you want to delete your sell?"
