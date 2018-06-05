@@ -5,65 +5,13 @@ import { withCookies, Cookies } from 'react-cookie';
 import SellDetail from './SellDetail';
 import {SELL_URL, BOARD_URL} from "../constants";
 
-const possibleBooks = [
-  {
-    text: 'Introduction to DB',
-    subjectName: 'Intro to DB',
-    subjectID: 'CS360',
-    author: 'Hyun Sun Ju',
-    cost: '2000',
-    key: 0,
-    value: 0,
-  },
-  {
-    text: 'Structure and Interpretation of Computer Program',
-    subjectName: 'Programming Principles',
-    subjectID: 'CS220',
-    author: 'Hyun Sun Ju',
-    cost: '3000',
-    key: 1,
-    value: 1,
-  },
-  {
-    text: 'How to write C code',
-    subjectName: 'Special Lecture on Computer Science',
-    subjectID: 'CS492',
-    author: 'Hyun Sun Ju',
-    cost: '1500',
-    key: 2,
-    value: 2,
-  },
-];
-
 class Sell extends Component{
   constructor(props){
     super(props);
     this.state={
-      possible_books: [
-        {
-          text: 'Introduction to DB',
-          subjectName: 'Intro to DB',
-          subjectID: 'CS360',
-          author: 'Hyun Sun Ju',
-          cost: '2000',
-        },
-        {
-          text: 'Structure and Interpretation of Computer Program',
-          subjectName: 'Programming Principles',
-          subjectID: 'CS220',
-          author: 'Hyun Sun Ju',
-          cost: '3000',
-        },
-        {
-          text: 'How to write C code',
-          subjectName: 'Special Lecture on Computer Science',
-          subjectID: 'CS492',
-          author: 'Hyun Sun Ju',
-          cost: '1500',
-        },
-      ],
-      subjectName: '',
+      possible_books: [],
       entryState: 'out',
+      selectedID: '',
     }
     this.changeColor = this.changeColor.bind(this);
     this.resetColor = this.resetColor.bind(this);
@@ -79,10 +27,23 @@ class Sell extends Component{
   componentWillMount(){
     const { cookies } = this.props;
     console.log(cookies.get('StudentID'));
+
     axios.get(BOARD_URL)
       .then((res) => {
-        console.log(res);
-        this.setState({ possible_books : res.data });
+        console.log(res.data);
+        var arr = [];
+
+        res.data.map(function(item){
+          arr.push({
+            text: item.BookName,
+            key: item.BookID,
+            value: item.BookID,
+          })
+          console.log(arr);
+        });
+
+        this.setState({possible_books: arr});
+
       })
       .catch((e) => console.log(e));
   }
@@ -119,11 +80,11 @@ class Sell extends Component{
 
   detectFile(e){
     this.setState({file: e.target.files[0]});
-    alert(e.target.files[0]);
   }
 
   dropDownOnClick(e){
-    this.setState({subjectName: e.target.value});
+    console.log(e.value);
+    this.setState({selectedID: e.target.value});
   }
 
   handleChange (e) {
@@ -134,28 +95,26 @@ class Sell extends Component{
     const { cookies } = this.props;
     console.log(cookies.get('StudentID'));
 
-    const file_to_img = new FileReader();
+    let file_to_img = new FileReader();
     file_to_img.readAsDataURL(this.state.file);
+    file_to_img.onload = function(e) {
+      var rawLog = file_to_img.result;
 
-    const send_data = {
-      bookID: '',
-      sellerID: cookies.get('StudentID'),
-      price: this.state.price,
-      edition: this.state.edition,
-      photo_in_base64: file_to_img,
+      const send_data = {
+        bookID: 10,
+        sellerID: cookies.get('StudentID'),
+        price: 5000,
+        edition: 2,
+        base64: rawLog,
+      };
+      axios.post(SELL_URL, send_data)
+        .then((res) => {
+
+        })
     };
-    axios.post(SELL_URL, send_data)
-      .then((res) => {
-
-      })
   };
 
   render(){
-    const friendOptions=[
-      {
-        text:'Hello',
-      }
-    ];
     return(
       <div style={styles.section}>
 
@@ -170,14 +129,15 @@ class Sell extends Component{
         <Form>
           <div style={styles.divStyle}>
             <label style={styles.label}>
-              Enter Book Title
+              Search Book Title
             </label>
             <Dropdown
-              placeholder={this.state.subjectName}
+              placeholder={'Search Book Title'}
               fluid
               search
               selection
-              options={possibleBooks}/>
+              onClick={this.dropDownOnClick}
+              options={this.state.possible_books}/>
           </div>
 
           <div style={styles.divStyle}>
@@ -185,7 +145,7 @@ class Sell extends Component{
               Upload your book photo
             </label>
             <Form.Input
-              onChange={this.testFunc}
+              onChange={this.detectFile}
               fluid
               style={styles.inputStyle}
               type='file' />
