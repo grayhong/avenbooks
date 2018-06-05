@@ -10,7 +10,8 @@ router.get('/buy', async(req, res) => {
   //               ( select * from selling where sellerid=${parseInt(sellerID)} ) as s \
   //               where s.sellingid = t.sellingid;`;
 
-  let sql;
+  let sql, buy_list;
+  
   if (sellerID) {
     sql = `select SellingID, BookName, StudentID as BuyerID, Time, Price, PhoneNumber, Name as BuyerName, Finished \
             from student natural join (select SellingID, BookName, BuyerID as StudentID, Time, Price, Finished  \
@@ -26,7 +27,7 @@ router.get('/buy', async(req, res) => {
   console.log(sql);
   
   try {
-    const buy_list = await query(sql, true);
+    buy_list = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
