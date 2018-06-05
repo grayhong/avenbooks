@@ -66,7 +66,7 @@ class Table extends Component {
           subjectName={item.CourseName}
           subjectID={item.CourseID}
           bookID={item.BookID}
-          cost={item.cost}
+          cost={item.min_price}
           imgSrc={Logo}
           author={item.Author}
         />
