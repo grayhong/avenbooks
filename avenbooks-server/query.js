@@ -18,7 +18,8 @@ const query = (sql, has_return = false) => {
           resolve();
         });
         con.release();
-      } catch{
+      }
+      catch {
         reject(-1);
       }
     });
