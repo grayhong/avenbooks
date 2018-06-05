@@ -9,14 +9,18 @@ const query = (sql, has_return = false) => {
       if (err) throw err;
       console.log("Connected!");
       console.log(sql);
-      con.query(sql, (err, result, fields) => {
-        if (err) throw err;
-        console.log("Success!");
-        console.log(result);
-        if (has_return) resolve(result);
-        resolve();
-      });
-      con.release();
+      try {
+        con.query(sql, (err, result, fields) => {
+          if (err) throw err;
+          console.log("Success!");
+          console.log(result);
+          if (has_return) resolve(result);
+          resolve();
+        });
+        con.release();
+      } catch{
+        resolve(-1);
+      }
     });
   });
 };
