@@ -8,5 +8,7 @@ export const REGISTER_URL = BASE_URL + 'register';
 export const BOOK_URL = BASE_URL + 'book';
 export const BUY_URL = BASE_URL + 'buy';
 export const CONFIRM_URL = BASE_URL + 'confirm';
+export const BASE_IMAGE_URL = BASE_URL + 'book_';
+export const SELL_IMAGE_URL = BASE_URL + 'sell_';
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { SELL_URL, BOOK_URL, BUY_URL } from "../constants";
+import { SELL_URL, BOOK_URL, BUY_URL, SELL_IMAGE_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import { Header, Card, Image, Button, Confirm, Search } from 'semantic-ui-react';
 import course from '../static/images/course.png';
@@ -179,7 +179,7 @@ class SellingInfo extends React.Component {
   render() {
     return (
       <Card style={styles.detailStyle}>
-        <Image src={image1} style={styles.imageStyle} />
+        <Image src={SELLIMAGE_URL + this.props.sellingID} style={styles.imageStyle} />
         <Card.Content>
           <Card.Header>
             Price : {this.props.price}won
