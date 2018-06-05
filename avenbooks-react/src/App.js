@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import Board from './components/Board';
-
+import Register from './components/Register'
+import Detail from './components/Detail';
+import MyPage from './components/MyPage';
 import './App.css';
 import NavBar from './components/common/NavBar';
 import Login from './components/Login';
-import Register from './components/Register';
+import Sell from './components/Sell'
+import Table from './components/Table'
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +40,11 @@ class App extends Component {
               <Route exact path="/" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/board" component={Board} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/sell" component={Sell} />
+              <Route exact path="/table" component={Table} />
+              <Route exact path="/detail" component={Detail} />
+              <Route exact path="/mypage" component={MyPage} />
               <Redirect from="/" to="/" />
             </Switch>
           </div>

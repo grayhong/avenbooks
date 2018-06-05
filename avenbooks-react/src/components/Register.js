@@ -20,66 +20,66 @@ class Register extends Component {
   registerUser(e) {
     const { sid, password, name, phoneNumber } = this.state;
     axios.post(REGISTER_URL, { sid, password, name, phoneNumber })
-        .then((m) => this.props.history.push('/'))
-        .catch((e) => console.log(e));
+      .then((m) => this.props.history.push('/'))
+      .catch((e) => console.log(e));
     e.preventDefault();
   }
 
   render() {
     return (
-        <div style={{height: '100vh', backgroundColor: '#F2F6FA'}}>
-          <Grid
-              textAlign='center'
-              style={{ height: '100%' }}
-              verticalAlign='middle'
-          >
-            <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as='h2' color='teal' textAlign='center'>
-                Register
-              </Header>
-              <Form onSubmit={(e) => this.registerUser(e)} size='large'>
-                <Segment stacked>
-                  <Form.Input
-                      fluid
-                      icon='user'
-                      iconPosition='left'
-                      placeholder='Student ID'
-                      onChange={event => this.setState({ sid: event.target.value })}
-                      value={this.state.sid}
-                  />
-                  <Form.Input
-                      fluid
-                      icon='lock'
-                      iconPosition='left'
-                      placeholder='Password'
-                      onChange={event => this.setState({ password: event.target.value })}
-                      value={this.state.password}
-                  />
-                  <Form.Input
-                      fluid
-                      icon='user'
-                      iconPosition='left'
-                      placeholder='Name'
-                      onChange={event => this.setState({ name: event.target.value })}
-                      value={this.state.name}
-                  />
+      <div style={{height: '100vh', backgroundColor: '#F2F6FA'}}>
+        <Grid
+          textAlign='center'
+          style={{ height: '100%' }}
+          verticalAlign='middle'
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='teal' textAlign='center'>
+              Register
+            </Header>
+            <Form onSubmit={(e) => this.registerUser(e)} size='large'>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Student ID'
+                  onChange={event => this.setState({ sid: event.target.value })}
+                  value={this.state.sid}
+                />
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  onChange={event => this.setState({ password: event.target.value })}
+                  value={this.state.password}
+                />
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Name'
+                  onChange={event => this.setState({ name: event.target.value })}
+                  value={this.state.name}
+                />
 
-                  <Form.Input
-                      fluid
-                      icon='phone'
-                      iconPosition='left'
-                      placeholder='Phone Number'
-                      onChange={event => this.setState({ phoneNumber: event.target.value })}
-                      value={this.state.phoneNumber}
-                  />
+                <Form.Input
+                  fluid
+                  icon='phone'
+                  iconPosition='left'
+                  placeholder='Phone Number'
+                  onChange={event => this.setState({ phoneNumber: event.target.value })}
+                  value={this.state.phoneNumber}
+                />
 
 
-                  <Button color='teal' fluid size='large'>Register</Button>
-                </Segment>
-              </Form>
-            </Grid.Column>
-          </Grid>
-        </div>
+                <Button color='teal' fluid size='large'>Register</Button>
+              </Segment>
+            </Form>
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }

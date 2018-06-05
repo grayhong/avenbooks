@@ -28,7 +28,7 @@ class Login extends Component {
           cookies.set('StudentID', StudentID, { path: '/' });
           cookies.set('Name', Name, { path: '/' });
           cookies.set('PhoneNumber', PhoneNumber, { path: '/' });
-          this.props.history.replace('/board');
+          this.props.history.replace('/table');
         })
         .catch((e) => console.log(e));
     e.preventDefault();
