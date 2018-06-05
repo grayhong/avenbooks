@@ -31,10 +31,10 @@ CREATE TABLE COURSE (
     CourseName varchar(40),
     Professor varchar(30),
     DepartmentID char(3) NOT NULL,
-    CourseBookID integer,
+    BookID integer,
     PRIMARY KEY (CourseID),
     FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID),
-    FOREIGN KEY (CourseBookID) REFERENCES BOOK(BookID)
+    FOREIGN KEY (BookID) REFERENCES BOOK(BookID)
 );
 
 CREATE TABLE SELLING (
