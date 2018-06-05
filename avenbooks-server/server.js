@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import addRoutes from './routes';
+import path from 'path'
 
 /* Environment variable settings. */
 config();
@@ -10,18 +11,19 @@ config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 
-/* Connect to MySQL server. */
-// const db = mongoose.connection;
-// db.on('error', console.error);
-// db.once('open', () => {
-//   console.log('Connected to mongod server');
-// });
-// mongoose.connect('mongodb://localhost/paperplane');
+// const staticPath = path.posix.join(config.assetsPublicPath, config.assetsSubDirectory);
+
+// const staticPath = path.posix.join(__dirname, 'statics');
+const staticPath = '/static';
+// console.log(staticPath);
 
 /* Middleware settings. */
-app.use(express.static('static'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(staticPath, express.static(path.join(__dirname, 'statics')));
+// app.use(express.static(__dirname + '/statics'));
+
 
 /* Routes settings. */
 addRoutes(app);

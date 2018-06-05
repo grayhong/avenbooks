@@ -3,30 +3,30 @@ import query from '../query';
 
 const router = express.Router();
 
-// router.get('/users', async (req, res) => {
-//   const { sid } = req.query;
+router.get('/users', async (req, res) => {
+  const { sid } = req.query;
 
-//   const sql = `SELECT * FROM STUDENT WHERE StudentID = ${sid}`
+  const sql = `SELECT * FROM STUDENT WHERE StudentID = ${parseInt(sid)}`
+  let user;
 
-//   try {
-//     user = await query(sql);
-//   } catch (err) {
-//     return res.status(500).end(err.message);
-//   }
-//   const { password, ...userWithoutPassword } = user;
-//   res.json(userWithoutPassword);
-// });
+  try {
+    user = await query(sql);
+  } catch (err) {
+    return res.status(500).end(err.message);
+  }
+  const { password, ...userWithoutPassword } = user;
+  res.json(userWithoutPassword);
 
+});
 
 router.post('/register', async (req, res) => {
   const { sid, password, name, phoneNumber } = req.body;
   if (!sid || !name || !password || !phoneNumber) return res.status(400).end('sid, name, phone number, password should be given.');
   // 400 when already registered
   // if (await UserModel.findOne({ id })) return res.status(400).end('Duplicate id.');
-  console.log('register');
+  
   const sql = `INSERT INTO Student VALUES(${parseInt(sid)}, '${password}', '${name}', '${phoneNumber}')`
-  console.log(sql);
-
+  
   try {
     await query(sql);
   } catch (err) {
