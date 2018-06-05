@@ -183,7 +183,7 @@ class MyPage extends Component {
           </Card.Content>
           <Card.Content extra>
             <div className='ui two buttons'>
-              <Button basic color='green'>Change</Button>
+              <Button basic color='black'>Change</Button>
             </div>
           </Card.Content>
         </Card>
@@ -332,7 +332,7 @@ class MySellingInfo extends React.Component {
         </Table.Cell>
         <Table.Cell>
           <Link to='/sell'>
-            <Button content='Modify' primary></Button>
+            <Button content='Modify' color='teal'></Button>
           </Link>
           <Button content='Delete' secondary onClick={this.show}></Button>
           <Confirm
@@ -396,7 +396,8 @@ class OthersBuyingReq extends React.Component {
           <div>
           <Button
             content='Confirm'
-            primary onClick={this.show}>
+            color='teal'
+            onClick={this.show}>
           </Button>
           <Confirm
             open={this.state.open}

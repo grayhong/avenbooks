@@ -15,7 +15,11 @@ export default class NavBar extends Component {
                 SELL
               </Link>
             </NavBarItem>
-            <NavBarItem to="/profile">My Profile</NavBarItem>
+            <NavBarItem to="/profile">
+              <Link to='/mypage' params={{}} style={styles.linkStyle}>
+              My Page
+              </Link>
+            </NavBarItem>
             <div style={{ clear:'both' }} />
           </div>
         </div>
