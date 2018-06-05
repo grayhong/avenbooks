@@ -23,10 +23,12 @@ class TableEntry extends Component{
           <p style={styles.costStyle}> {this.props.cost === null ? 'No Item' : this.props.cost + "$ ~ "}</p>
         </div>
         <div style={styles.buyNowContentStyle}>
-          <p style={{...styles.buyNowStyle, color: this.props.cost === null ? '#808080' : '#87CEEB'}}>
-            <Link to={`/detail/${bookID}`}>
-              Buy Now >
-            </Link> </p>
+          {this.props.cost === null ? null :
+            <p style={styles.buyNowStyle}>
+              <Link to={`/detail/${bookID}`}>
+                Buy Now >
+              </Link>
+            </p>}
         </div>
       </div>
     )
@@ -119,6 +121,7 @@ const styles = {
     fontSize: '1.5rem',
     fontStyle: 'italic',
     textDecoration: 'underline',
+    color: '#87CEEB',
   },
 };
 
