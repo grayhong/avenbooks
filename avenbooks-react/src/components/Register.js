@@ -3,6 +3,7 @@ import axios from 'axios';
 import {REGISTER_URL} from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import Book from 'react-icons/lib/go/book';
 
 
 class Register extends Component {
@@ -35,7 +36,7 @@ class Register extends Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
-              Register
+              <Book style={styles.iconStyle}/> Join Avenbooks
             </Header>
             <Form onSubmit={(e) => this.registerUser(e)} size='large'>
               <Segment stacked>
@@ -147,6 +148,11 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  iconStyle: {
+    height: '25px',
+    width: '25px',
+    marginBottom: '3px'
   }
 };
 
