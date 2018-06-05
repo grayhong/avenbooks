@@ -9,14 +9,14 @@ router.get('/buy', async(req, res) => {
   let sql, buy_list;
 
   if (sellerID) {
-    sql = `select SellingID, BookName, StudentID as BuyerID, Time, Price, PhoneNumber, Name as BuyerName, Finished \
-            from student natural join (select SellingID, BookName, BuyerID as StudentID, Time, Price, Finished  \
+    sql = `select SellingID, BookName, StudentID as BuyerID, Time, Price, PhoneNumber, Name as BuyerName, Finished, Confirmed \
+            from student natural join (select SellingID, BookName, BuyerID as StudentID, Time, Price, Finished, Confirmed  \
             from book as st natural join (select * from trade as t natural join \
             ( select * from selling where sellerid=${parseInt(sellerID)}) as s) as t) as bt order by Time`;
 
   } else {
-    sql = `select SellingID, BookName, StudentID as SellerID, Time, Price, PhoneNumber, Name as SellerName, Confirmed \
-            from student natural join (select SellingID, BookName, SellerID as StudentID, Time, Price, Confirmed \
+    sql = `select SellingID, BookName, StudentID as SellerID, Time, Price, PhoneNumber, Name as SellerName, Finished, Confirmed \
+            from student natural join (select SellingID, BookName, SellerID as StudentID, Time, Price, Finished, Confirmed \
             from book as st natural join (select * from selling as t natural join \
             (select * from trade where buyerid=${parseInt(buyerID)}) as s) as ut) as bt order by Time`;
   }
