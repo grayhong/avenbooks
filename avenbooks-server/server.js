@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import addRoutes from './routes';
+import path from 'path'
 
 /* Environment variable settings. */
 config();
@@ -12,13 +13,15 @@ const app = express();
 
 // const staticPath = path.posix.join(config.assetsPublicPath, config.assetsSubDirectory);
 
+const staticPath = path.posix.join(__dirname, 'statics');
+console.log(staticPath);
 
 /* Middleware settings. */
 app.use(express.static('static'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
-app.use(staticPath, express.static('./static'));
+app.use(staticPath, express.static('./statics'));
 
 
 /* Routes settings. */
