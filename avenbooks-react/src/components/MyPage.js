@@ -343,6 +343,7 @@ class MySellingInfo extends React.Component {
           </Link>
           <Button content='Delete' secondary onClick={this.show}></Button>
           <Confirm
+            content="Are you sure you want to delete your sell?"
             open={this.state.open}
             onCancel={this.handleCancel}
             onConfirm={this.handleConfirm}

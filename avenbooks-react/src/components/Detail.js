@@ -174,7 +174,7 @@ class SellingInfo extends React.Component {
       console.log(res);
     }).catch((error) => {
       console.log(error);
-    });
+    });git
   }
 
   render() {
@@ -198,6 +198,7 @@ class SellingInfo extends React.Component {
           <div>
             <Button onClick={this.show}>BUY</Button>
             <Confirm
+              content="Are you sure you want to delete buy this book?"
               open={this.state.open}
               onCancel={this.handleCancel}
               onConfirm={this.handleConfirm}
