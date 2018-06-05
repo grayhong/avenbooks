@@ -43,7 +43,7 @@ router.post('/sell', async (req, res) => {
   }
 
   // time을 이름으로 사진 저장
-  const getID = 'SELECT LAST_INSERT_ID();';
+  const getID = 'SELECT LAST_INSERT_ID() as ID;';
 
   try {
     id = await query(getID, true);
@@ -52,7 +52,7 @@ router.post('/sell', async (req, res) => {
   }
 
   console.log(id);
-  const fileName = `${bookID}_${id['LAST_INSERT_ID()']}.jpg`;
+  const fileName = `sell_${id['ID']}.jpg`;
   
   try {
     url = await saveImageSync(base64, fileName);
