@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SELL_URL, BUY_URL, CONFIRM_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
 import {Link} from 'react-router-dom';
-import { Table, Header, Label, Button, Card, Image, Confirm } from 'semantic-ui-react';
+import { Table, Header, Label, Button, Card, Image, Modal } from 'semantic-ui-react';
 import course from '../static/images/course.png';
 
 class MyPage extends Component {
@@ -340,13 +340,19 @@ class MySellingInfo extends React.Component {
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <Button content='Delete' secondary onClick={this.show}></Button>
-          <Confirm
-            content="Are you sure you want to delete your sell?"
+          <Modal
             open={this.state.open}
-            onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
+            trigger={<Button secondary onClick={this.show}>Delete</Button>}
+            onClose={this.handleCancel}
+          >
+            <Modal.Content>
+              Are you sure you want to delete your sell?
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={this.handleCancel}>No</Button>
+              <Button onClick={this.handleConfirm} color='teal' content='Yes' />
+            </Modal.Actions>
+          </Modal>
         </Table.Cell>
       </Table.Row>
     )
@@ -402,19 +408,19 @@ class OthersBuyingReq extends React.Component {
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <div>
-          <Button
-            content='Confirm'
-            color='teal'
-            onClick={this.show}>
-          </Button>
-          <Confirm
+          <Modal
             open={this.state.open}
-            content="Are you sure you want to confirm this request?"
-            onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
-          </div>
+            trigger={<Button color='teal' onClick={this.show}>Confirm</Button>}
+            onClose={this.handleCancel}
+          >
+            <Modal.Content>
+              Are you sure you want to confirm this request?
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={this.handleCancel}>No</Button>
+              <Button onClick={this.handleConfirm} color='teal' content='Yes' />
+            </Modal.Actions>
+          </Modal>
         </Table.Cell>
       </Table.Row>
     )
@@ -472,18 +478,19 @@ class MyBuyingReq extends React.Component {
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <div>
-            <Button
-              content='Delete'
-              secondary onClick={this.show}>
-            </Button>
-            <Confirm
-              open={this.state.open}
-              content="Are you sure you want to delete your request?"
-              onCancel={this.handleCancel}
-              onConfirm={this.handleDeleteConfirm}
-            />
-          </div>
+          <Modal
+            open={this.state.open}
+            trigger={<Button secondary onClick={this.show}>Delete</Button>}
+            onClose={this.handleCancel}
+          >
+            <Modal.Content>
+              Are you sure you want to delete your request?
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={this.handleCancel}>No</Button>
+              <Button onClick={this.handleDeleteConfirm} color='teal' content='Yes' />
+            </Modal.Actions>
+          </Modal>
         </Table.Cell>
       </Table.Row>
     )

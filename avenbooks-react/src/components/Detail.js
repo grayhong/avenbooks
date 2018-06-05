@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { SELL_URL, BOOK_URL, BUY_URL, SELL_IMAGE_URL } from "../constants";
 import { withCookies, Cookies } from 'react-cookie';
-import { Header, Card, Image, Button, Confirm, Search } from 'semantic-ui-react';
+import { Header, Card, Image, Button, Confirm, Search, Modal } from 'semantic-ui-react';
 import course from '../static/images/course.png';
 import image1 from '../static/images/image1.jpg';
 
@@ -222,16 +222,19 @@ class SellingInfo extends React.Component {
         <Card.Content extra>
           {bought ? null :
             (
-              <div>
-                <Button onClick={this.show}>BUY</Button>
-                <Confirm
-                  content="Are you sure you want to delete buy this book?"
-                  open={this.state.open}
-                  onCancelColor='teal'
-                  onCancel={this.handleCancel}
-                  onConfirm={this.handleConfirm}
-                />
-              </div>
+              <Modal
+                open={this.state.open}
+                trigger={<Button onClick={this.show}>BUY</Button>}
+                onClose={this.handleCancel}
+              >
+                <Modal.Content>
+                  Are you sure you want to buy this book?
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button onClick={this.handleCancel}>No</Button>
+                  <Button onClick={this.handleConfirm} color='teal' content='Yes' />
+                </Modal.Actions>
+              </Modal>
             )}
         </Card.Content>
       </Card>
