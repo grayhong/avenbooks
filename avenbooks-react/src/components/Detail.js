@@ -17,8 +17,8 @@ class Detail extends Component {
         BookName: "Introduction to DB",
         Author: "HSJ",
         CourseID: "CS360"
-      }
-      /*
+      },
+
       sellingInfo: [
         {
           SellingID: 1,
@@ -69,29 +69,31 @@ class Detail extends Component {
           Price: 10000,
           Time: new Date('2018-05-26T00:49:00+09:00').toString()
         }
-      ] */
+      ]
     };
 
-    //this.getBookInfo = this.getBookInfo.bind(this);
+    this.getBookInfo = this.getBookInfo.bind(this);
     this.getSellingInfo = this.getSellingInfo.bind(this);
   }
 
   componentWillMount() {
     const { cookies, bookID1 } = this.props;
     /* TODO : Need to use bookID from props */
+    //this.getBookInfo(bookID);
     const bookID = 1;
-    this.getSellingInfo(bookID);
+    //this.getSellingInfo(bookID);
   }
 
 
   /* Get book informations with bookID */
   getBookInfo(bookID) {
+    console.log("getBookInfo");
     axios.get(BOOK_URL, {
       params: {
         bookID: bookID
       }
     }).then((res) => {
-      //this.sellinginfo = response.data;
+      this.setState({bookInfo : res.data});
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -114,13 +116,14 @@ class Detail extends Component {
   }
 
   render() {
+    // TODO Get bookID from props
     const { cookies, bookID1 } = this.props;
     return (
       <div>
         <div>
           <Header
-            as='h2'
-            image={course}
+            style={styles.headerStyle}
+            as='h1'
             content={this.state.bookInfo.BookName + ', ' +
             this.state.bookInfo.Author + ', ' +
             this.state.bookInfo.CourseID}
@@ -146,29 +149,29 @@ class SellingInfo extends React.Component {
 
   show = () => {
     this.setState({ open: true });
-  }
+  };
 
   /* Called when the modal when OK button */
   handleConfirm = () => {
     this.buyingReq();
-    alert ("BUY!!");
     this.setState({ open: false });
-  }
+  };
 
   /* Called when the modal is closed without clicking confirm */
   handleCancel = () => {
-    alert ("CANCELED!!");
     this.setState({ open: false });
-  }
+  };
 
   /* Request for buying */
   buyingReq() {
+    console.log(this.props.seller);
+    console.log(this.props.sellingID);
     axios.post(BUY_URL, {
-      sellingID: this.props.seller,
-      buyerID: this.props.cookies.get('StudentID')
-    }).then(function(response) {
-      console.log(response);
-    }).catch(function(error) {
+      sellingID: 0,
+      buyerID: 20160140
+    }).then((res) => {
+      console.log(res);
+    }).catch((error) => {
       console.log(error);
     });
   }
@@ -179,15 +182,15 @@ class SellingInfo extends React.Component {
         <Image src={image1} style={styles.imageStyle} />
         <Card.Content>
           <Card.Header>
-            {this.props.price}won
+            Price : {this.props.price}won
           </Card.Header>
           <Card.Meta>
-        <span className='date'>
-          {this.props.time}
-        </span>
+          <spcan className='date'>
+          Uploaded : {this.props.time}
+          </spcan>
           </Card.Meta>
           <Card.Description>
-            seller: {this.props.seller}
+            Seller: {this.props.seller}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
@@ -197,7 +200,6 @@ class SellingInfo extends React.Component {
               open={this.state.open}
               onCancel={this.handleCancel}
               onConfirm={this.handleConfirm}
-              size='mini'
             />
           </div>
         </Card.Content>
@@ -207,6 +209,9 @@ class SellingInfo extends React.Component {
 }
 
 const styles = {
+  headerStyle: {
+    marginTop: '1.5vh',
+  },
   detailStyle: {
     width: '20vw',
     margin: '1vw'
