@@ -135,7 +135,7 @@ class Detail extends Component {
               return (<SellingInfo price={info.Price}
                                    sellingID={info.SellingID}
                                    sellerID={info.SellerID}
-                                   time={info.Time}
+                                   time={info.sellingTime}
                                    cookies={cookies}
                                    key={i}/>);
             })}

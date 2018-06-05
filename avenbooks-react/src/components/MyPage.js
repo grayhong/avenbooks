@@ -237,11 +237,13 @@ class MyPage extends Component {
             {this.state.othersBuyingReq.map((info, i) => {
               return (<OthersBuyingReq bookName={info.BookName}
                                        sellerID={info.SellerID}
+                                       sellingID={info.SellingID}
                                        buyerName={info.BuyerName}
                                        time={info.TradeTime}
                                        buyerID={info.BuyerID}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
+                                       getMySellingInfo={this.getMySellingInfo}
                                        getOthersBuyingReq={this.getOthersBuyingReq}
                                        key={i}/>);
             })}
@@ -377,7 +379,8 @@ class OthersBuyingReq extends React.Component {
     axios.put(CONFIRM_URL + '/' + sellingID + '/' + buyerID
     ).then((res) => {
       console.log(res);
-      this.props.getOthersBuyingReq(this.props.studentID)
+      this.props.getMySellingInfo(this.props.studentID);
+      this.props.getOthersBuyingReq(this.props.studentID);
     }).catch((error) => {
       console.log(error);
     });
