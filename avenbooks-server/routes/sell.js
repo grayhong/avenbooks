@@ -11,7 +11,7 @@ router.get('/sell', async (req, res) => {
   let sell_list;
 
   if (sellerID) {
-    sql = `SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}`;
+    sql = `SELECT * FROM BOOK natural join (SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}) as a order by time`;
   }
   else if (bookID) {
     sql = `SELECT * FROM SELLING WHERE BookID=${parseInt(bookID)} ORDER BY Price`;
@@ -60,6 +60,18 @@ router.post('/sell', async (req, res) => {
   }
 
   res.status(200).json({ id, url });
+});
+
+router.delete('/sell/:sellingID', async (req, res) => {
+  const sql = `DELETE FROM Selling where SellingID=${sellingID};`
+
+  try {
+    await query(sql);
+  } catch (err) {
+    return res.status(500).end(err.message);
+  }
+
+  res.status(201).end(`Successfully deleted selling request: ${sellingID}`);
 });
 
 
