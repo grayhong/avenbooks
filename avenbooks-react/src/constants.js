@@ -12,5 +12,3 @@ export const BUY_URL = BASE_URL + 'buy';
 export const CONFIRM_URL = BASE_URL + 'confirm';
 export const BASE_IMAGE_URL = DEFAULT_URL + 'static/book_';
 export const SELL_IMAGE_URL = DEFAULT_URL + 'static/sell_';
-
-
