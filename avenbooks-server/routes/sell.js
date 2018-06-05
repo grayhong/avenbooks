@@ -64,6 +64,7 @@ router.post('/sell', async (req, res) => {
 });
 
 router.delete('/sell/:sellingID', async (req, res) => {
+  const { sellingID } = req.params;
   const sql = `DELETE FROM Selling where SellingID=${sellingID};`
 
   try {

@@ -32,6 +32,7 @@ router.get('/buy', async(req, res) => {
 });
 
 router.put('/confirm/:sellingID/:buyerID', async (req, res) => {
+  const { sellingID, buyerID } = req.params;
   
   const sql = `UPDATE TRADE SET Confirmed=true WHERE SellingID=${parseInt(sellingID)} && BuyerID = ${parseInt(buyerID)}`;
   
@@ -61,6 +62,7 @@ router.post('/buy', async (req, res) => {
 });
 
 router.delete('/buy/:sellingID/:buyerID', async (req, res) => {
+  const { sellingID, buyerID } = req.params;
   const sql = `DELETE FROM TRADE where SellingID=${sellingID} && BuyerID=${buyerID}`
 
   try {
