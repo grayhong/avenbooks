@@ -231,7 +231,7 @@ class Sell extends Component{
 
 const styles = {
   section: {
-    height: '65vh',
+    height: '85vh',
     width: '60vw',
     backgroundColor: '#FFFFFF',
     minHeight: '550px',
