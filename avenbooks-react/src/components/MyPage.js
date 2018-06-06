@@ -191,8 +191,6 @@ class MyPage extends Component {
           <Table collapsing celled style={styles.tableStyle}>
             <Table.Header>
               <Table.Row style={styles.rowStyle}>
-                <Table.HeaderCell>SellingID</Table.HeaderCell>
-                <Table.HeaderCell>BookID</Table.HeaderCell>
                 <Table.HeaderCell>BookName</Table.HeaderCell>
                 <Table.HeaderCell>Price</Table.HeaderCell>
                 <Table.HeaderCell>Uploaded Time</Table.HeaderCell>
@@ -319,14 +317,6 @@ class MySellingInfo extends React.Component {
   render() {
     return (
       <Table.Row disabled={this.props.finished} style={styles.rowStyle}>
-        <Table.Cell>
-          <Label ribbon>
-            {this.props.sellingID}
-          </Label>
-        </Table.Cell>
-        <Table.Cell>
-          {this.props.bookID}
-        </Table.Cell>
         <Table.Cell>
           {this.props.bookName}
         </Table.Cell>
