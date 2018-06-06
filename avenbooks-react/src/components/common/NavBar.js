@@ -10,14 +10,19 @@ export default class NavBar extends Component {
         <div style={styles.navBarStyle}>
           <div style={styles.containerStyle}>
             <NavBarItem title to="/table"><Book style={styles.iconStyle}/>&nbsp;AVENBOOKS</NavBarItem>
-            <NavBarItem to="/hi1">
-              <Link to='/sell' params={{}} style={styles.linkStyle}>
-                Sell
+            <NavBarItem to="/">
+              <Link to='/' params={{}} style={styles.linkStyle}>
+                Logout
               </Link>
             </NavBarItem>
             <NavBarItem to="/profile">
               <Link to='/mypage' params={{}} style={styles.linkStyle}>
               My Page
+              </Link>
+            </NavBarItem>
+            <NavBarItem to="/sell">
+              <Link to='/sell' params={{}} style={styles.linkStyle}>
+                Sell
               </Link>
             </NavBarItem>
             <div style={{ clear:'both' }} />
