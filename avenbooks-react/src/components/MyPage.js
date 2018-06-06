@@ -331,7 +331,8 @@ class MySellingInfo extends React.Component {
         <Table.Cell>
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
-        {this.props.finished ? null :
+        {this.props.finished ?
+          (<Table.Cell>-</Table.Cell>) :
           (
             <Table.Cell>
               <Modal
@@ -402,7 +403,8 @@ class OthersBuyingReq extends React.Component {
         <Table.Cell>
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
-        {this.props.finished ? null :
+        {this.props.finished ?
+          (<Table.Cell>-</Table.Cell>) :
           (
             <Table.Cell>
               <Modal
@@ -483,7 +485,8 @@ class MyBuyingReq extends React.Component {
         <Table.Cell>
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
-        {this.props.finished ? null :
+        {this.props.finished ?
+          (<Table.Cell>-</Table.Cell>) :
           (
             <Table.Cell>
               <Modal
