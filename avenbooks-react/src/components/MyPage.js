@@ -201,11 +201,16 @@ class MyPage extends Component {
 
             <Table.Body>
               {this.state.mySellingInfo.map((info, i) => {
+                let starttime = new Date(info.SellingTime);
+                let fixedtime = new Date(starttime.getTime()-(starttime.getTimezoneOffset()*60000));
+
+                const time = fixedtime.toISOString().slice(0, 19).replace('T', ' ');
+
                 return (<MySellingInfo sellingID={info.SellingID}
                                        bookID={info.BookID}
                                        bookName={info.BookName}
                                        price={info.Price}
-                                       time={info.SellingTime.replace('T', ' ').split('.')[0]}
+                                       time={time}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
                                        getMySellingInfo={this.getMySellingInfo}
@@ -226,6 +231,7 @@ class MyPage extends Component {
               <Table.HeaderCell>BuyerID</Table.HeaderCell>
               <Table.HeaderCell>BuyerName</Table.HeaderCell>
               <Table.HeaderCell>Requested Time</Table.HeaderCell>
+              <Table.HeaderCell>Confirmed</Table.HeaderCell>
               <Table.HeaderCell>Finished</Table.HeaderCell>
               <Table.HeaderCell></Table.HeaderCell>
             </Table.Row>
@@ -233,12 +239,17 @@ class MyPage extends Component {
 
           <Table.Body>
             {this.state.othersBuyingReq.map((info, i) => {
+              let starttime = new Date(info.TradeTime);
+              let fixedtime = new Date(starttime.getTime()-(starttime.getTimezoneOffset()*60000));
+
+              const time = fixedtime.toISOString().slice(0, 19).replace('T', ' ');
               return (<OthersBuyingReq bookName={info.BookName}
                                        sellerID={info.SellerID}
                                        sellingID={info.SellingID}
                                        buyerName={info.BuyerName}
-                                       time={info.TradeTime.replace('T', ' ').split('.')[0]}
+                                       time={time}
                                        buyerID={info.BuyerID}
+                                       confirmed={info.Confirmed}
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
                                        getMySellingInfo={this.getMySellingInfo}
@@ -268,12 +279,16 @@ class MyPage extends Component {
 
           <Table.Body>
             {this.state.myBuyingReq.map((info, i) => {
+              let starttime = new Date(info.TradeTime);
+              let fixedtime = new Date(starttime.getTime()-(starttime.getTimezoneOffset()*60000));
+
+              const time = fixedtime.toISOString().slice(0, 19).replace('T', ' ');
               return (<MyBuyingReq bookName={info.BookName}
                                    sellingID={info.SellingID}
                                    sellerID={info.SellerID}
                                    sellerName={info.SellerName}
                                    price={info.Price}
-                                   time={info.TradeTime.replace('T', ' ').split('.')[0]}
+                                   time={time}
                                    confirmed={info.Confirmed}
                                    studentID={cookies.get('StudentID')}
                                    getMyBuyingReq={this.getMyBuyingReq}
@@ -318,7 +333,10 @@ class MySellingInfo extends React.Component {
 
   render() {
     return (
-      <Table.Row disabled={this.props.finished} style={styles.rowStyle}>
+      <Table.Row
+        disabled={this.props.finished}
+        style={styles.rowStyle}
+        positive={this.props.finished}>
         <Table.Cell>
           {this.props.bookName}
         </Table.Cell>
@@ -387,7 +405,12 @@ class OthersBuyingReq extends React.Component {
 
   render () {
     return (
-      <Table.Row disabled={this.props.finished} style={styles.rowStyle}>
+      <Table.Row
+        disabled={this.props.finished}
+        style={styles.rowStyle}
+        positive={this.props.finished & this.props.confirmed}
+        negative={this.props.finished & (!this.props.confirmed)}
+        >
         <Table.Cell>
           {this.props.bookName}
         </Table.Cell>
@@ -399,6 +422,9 @@ class OthersBuyingReq extends React.Component {
         </Table.Cell>
         <Table.Cell>
           {this.props.time}
+        </Table.Cell>
+        <Table.Cell>
+          {(this.props.confirmed) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
           {(this.props.finished) ? "Yes" : "No"}
@@ -461,8 +487,8 @@ class MyBuyingReq extends React.Component {
       <Table.Row
         disabled={this.props.finished}
         style={styles.rowStyle}
-        positivie={this.props.finished && this.props.confirmed}
-        negative={this.props.finished && !this.props.confirmed}
+        positive={this.props.finished & this.props.confirmed}
+        negative={this.props.finished & (!this.props.confirmed)}
       >
         <Table.Cell>
           {this.props.bookName}

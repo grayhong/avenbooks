@@ -155,12 +155,16 @@ class Detail extends Component {
         </div>
           <Card.Group style={styles.cardGroupStyle}>
             {remainder.map((info, i) => {
-              console.log(sid);
-              console.log(info);
+              let starttime = new Date(info.SellingTime);
+              let fixedtime = new Date(starttime.getTime()-(starttime.getTimezoneOffset()*60000));
+
+              const time = fixedtime.toISOString().slice(0, 19).replace('T', ' ');
+
               return (<SellingInfo price={info.Price}
                                    sellingID={info.SellingID}
                                    sellerID={info.SellerID}
-                                   time={info.SellingTime.replace('T', ' ').split('.')[0]}
+                                   sellerName={info.SellerName}
+                                   time={time}
                                    cookies={cookies}
                                    bought={this.state.myBuyingReq.filter((obj) => {
                                      return obj.SellingID === info.SellingID
@@ -224,6 +228,9 @@ class SellingInfo extends React.Component {
           </Card.Meta>
           <Card.Description>
             Seller: {this.props.sellerID}
+          </Card.Description>
+          <Card.Description>
+            Name: {this.props.sellerName}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
