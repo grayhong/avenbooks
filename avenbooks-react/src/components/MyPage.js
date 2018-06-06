@@ -273,7 +273,7 @@ class MyPage extends Component {
                                    sellerName={info.SellerName}
                                    price={info.Price}
                                    time={info.TradeTime.replace('T', ' ').split('.')[0]}
-                                   confirmed={info.confirmed}
+                                   confirmed={info.Confirmed}
                                    studentID={cookies.get('StudentID')}
                                    getMyBuyingReq={this.getMyBuyingReq}
                                    key={i}/>);
