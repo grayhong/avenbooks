@@ -273,7 +273,7 @@ class MyPage extends Component {
                                    sellerName={info.SellerName}
                                    price={info.Price}
                                    time={info.TradeTime.replace('T', ' ').split('.')[0]}
-                                   confirmed={info.confirmed}
+                                   confirmed={info.Confirmed}
                                    studentID={cookies.get('StudentID')}
                                    getMyBuyingReq={this.getMyBuyingReq}
                                    key={i}/>);
@@ -465,7 +465,7 @@ class MyBuyingReq extends React.Component {
           {this.props.time}
         </Table.Cell>
         <Table.Cell>
-          {(this.props.finished) ? "Yes" : "No"}
+          {(this.props.confirmed) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
           <Modal
