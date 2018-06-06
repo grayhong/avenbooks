@@ -31,28 +31,29 @@ router.get('/sell', async (req, res) => {
 
 router.post('/sell', async (req, res) => {
   const { bookID, sellerID, price, edition, base64 } = req.body;
-  const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price)\
-               VALUES(${parseInt(bookID)}, ${parseInt(edition)}, ${parseInt(sellerID)}, ${parseInt(price)})`
+  const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price, Finished)\
+               VALUES(${parseInt(bookID)}, ${parseInt(edition)}, ${parseInt(sellerID)}, ${parseInt(price)}, false); \
+               SELECT LAST_INSERT_ID() as ID;`
   
   let id, url;
 
   try {
-    await query(sql);
+    id = await query(sql, true);
   } catch (err) {
     return res.status(500).end(err.message);
   }
 
   // time을 이름으로 사진 저장
-  const getID = 'SELECT LAST_INSERT_ID() as ID;';
+  const getID = '';
 
-  try {
-    id = await query(getID, true);
-  } catch (err) {
-    return res.status(500).end(err.message);
-  }
+  // try {
+  //   id = await query(getID, true);
+  // } catch (err) {
+  //   return res.status(500).end(err.message);
+  // }
 
   console.log(id);
-  const fileName = `sell_${id[0]['ID']}.jpeg`;
+  const fileName = `sell_${id[1][0]['ID']}.jpeg`;
   
   try {
     url = await saveImageSync(base64, fileName);

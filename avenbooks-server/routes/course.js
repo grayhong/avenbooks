@@ -8,7 +8,7 @@ router.get('/course', async (req, res) => {
   const sql = `select * from course natural join\ 
                 ( select * from book as b left join\ 
                   ( select bookid as s_bookid, min(price) as min_price \
-                    from selling group by bookid ) as s \
+                    from ( select * from selling where finished != true) as temp group by bookid ) as s \
                     on b.bookid = s.s_bookid) as c`;
 
   console.log(sql)

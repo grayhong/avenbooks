@@ -11,41 +11,37 @@ CREATE TABLE STUDENT (
 );
     
 CREATE TABLE DEPARTMENT (
-    DepartmentID varchar(3) NOT NULL,
+    DepartmentID varchar(3) NOT NULL PRIMARY KEY,
     DeptName varchar(30),
-    PhoneNumber varchar(11),
-    PRIMARY KEY (DepartmentID)
+    PhoneNumber varchar(11)
 );
 
 # 과목별 사용중인 책 목록
 CREATE TABLE BOOK (
-    BookID integer NOT NULL AUTO_INCREMENT,
+    BookID integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
     BookName varchar(100),
     CurrentEdition integer,
-    Author varchar(30),
-    PRIMARY KEY (BookID)
+    Author varchar(30)
 );
 
 CREATE TABLE COURSE (
-    CourseID varchar(8) NOT NULL,
+    CourseID varchar(8) NOT NULL PRIMARY KEY,
     CourseName varchar(40),
     Professor varchar(30),
     DepartmentID char(3) NOT NULL,
     BookID integer,
-    PRIMARY KEY (CourseID),
     FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID),
     FOREIGN KEY (BookID) REFERENCES BOOK(BookID)
 );
 
 CREATE TABLE SELLING (
-    SellingID integer NOT NULL AUTO_INCREMENT,
+    SellingID integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
     BookID integer,
     Edition integer,
     SellerID integer,
     Price integer,
     Finished bool,
     SellingTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (SellingID),
     FOREIGN KEY (BookID) REFERENCES BOOK(BookID),
     FOREIGN KEY (SellerID) REFERENCES STUDENT(StudentID)
 );
