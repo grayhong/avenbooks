@@ -164,6 +164,7 @@ class Detail extends Component {
                                    sellingID={info.SellingID}
                                    sellerID={info.SellerID}
                                    sellerName={info.SellerName}
+                                   phoneNumber={info.PhoneNumber}
                                    time={time}
                                    cookies={cookies}
                                    bought={this.state.myBuyingReq.filter((obj) => {
@@ -227,10 +228,13 @@ class SellingInfo extends React.Component {
           </spcan>
           </Card.Meta>
           <Card.Description>
-            Seller: {this.props.sellerID}
+            {this.props.sellerID}
           </Card.Description>
           <Card.Description>
-            Name: {this.props.sellerName}
+            {this.props.sellerName}
+          </Card.Description>
+          <Card.Description>
+            {this.props.phoneNumber}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
