@@ -151,6 +151,8 @@ class Detail extends Component {
         </div>
           <Card.Group style={styles.cardGroupStyle}>
             {this.state.sellingInfo.map((info, i) => {
+              console.log(sid);
+              console.log(info);
               return (<SellingInfo price={info.Price}
                                    sellingID={info.SellingID}
                                    sellerID={info.SellerID}
@@ -159,6 +161,7 @@ class Detail extends Component {
                                    bought={this.state.myBuyingReq.filter((obj) => {
                                      return obj.SellingID === info.SellingID
                                    }).length > 0}
+                                   mine={parseInt(sid)===parseInt(info.SellerID)}
                                    myBuyingReq={() => this.getMyBuyingReq(sid)}
                                    key={i}/>);
             })}
@@ -202,7 +205,7 @@ class SellingInfo extends React.Component {
   }
 
   render() {
-    const { bought } = this.props;
+    const { bought, mine } = this.props;
     return (
       <Card style={styles.detailStyle}>
         <Image src={SELL_IMAGE_URL + this.props.sellingID + '.jpeg'} style={styles.imageStyle} />
@@ -220,7 +223,7 @@ class SellingInfo extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          {bought ? null :
+          {bought || mine ? null :
             (
               <Modal
                 open={this.state.open}
