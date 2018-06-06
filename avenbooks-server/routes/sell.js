@@ -53,7 +53,7 @@ router.post('/sell', async (req, res) => {
   // }
 
   console.log(id);
-  const fileName = `sell_${id[1]['ID']}.jpeg`;
+  const fileName = `sell_${id[1][0]['ID']}.jpeg`;
   
   try {
     url = await saveImageSync(base64, fileName);
