@@ -50,7 +50,6 @@ CREATE TABLE TRADE (
     SellingID integer,
     BuyerID integer,
     Confirmed bool,
-    Finished bool,
     TradeTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_TRADE PRIMARY KEY (SellingID, BuyerID),
     FOREIGN KEY (SellingID) REFERENCES SELLING(SellingID)

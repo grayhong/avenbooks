@@ -48,8 +48,8 @@ router.put('/confirm/:sellingID/:buyerID', async (req, res) => {
 router.post('/buy', async (req, res) => {
   const { sellingID, buyerID } = req.body;
   
-  const sql = `INSERT INTO TRADE (SellingID, BuyerID, Confirmed, Finished)\
-                          VALUES (${parseInt(sellingID)}, ${parseInt(buyerID)}, false, false)`
+  const sql = `INSERT INTO TRADE (SellingID, BuyerID, Confirmed)\
+                          VALUES (${parseInt(sellingID)}, ${parseInt(buyerID)}, false)`
   console.log(sql)
   
   try {

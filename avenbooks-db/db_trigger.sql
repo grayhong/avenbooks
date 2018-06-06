@@ -6,8 +6,6 @@ CREATE TRIGGER `finish_after_confirm`
   FOR EACH ROW 
 BEGIN
   UPDATE SELLING SET FINISHED=true
-  WHERE SellingID = OLD.SellingID;
-  UPDATE TRADE SET FINISHED=true
   WHERE SellingID = OLD.SellingID;  
 END$$
 DELIMITER ;
