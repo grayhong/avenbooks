@@ -261,6 +261,7 @@ class MyPage extends Component {
               <Table.HeaderCell>Price</Table.HeaderCell>
               <Table.HeaderCell>Requested Time</Table.HeaderCell>
               <Table.HeaderCell>Confirmed</Table.HeaderCell>
+              <Table.HeaderCell>Finished</Table.HeaderCell>
               <Table.HeaderCell></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -276,6 +277,7 @@ class MyPage extends Component {
                                    confirmed={info.Confirmed}
                                    studentID={cookies.get('StudentID')}
                                    getMyBuyingReq={this.getMyBuyingReq}
+                                   finished={info.Finished}
                                    key={i}/>);
             })}
           </Table.Body>
@@ -329,21 +331,24 @@ class MySellingInfo extends React.Component {
         <Table.Cell>
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
-        <Table.Cell>
-          <Modal
-            open={this.state.open}
-            trigger={<Button secondary onClick={this.show}>Delete</Button>}
-            onClose={this.handleCancel}
-          >
-            <Modal.Content>
-              Are you sure you want to delete your sell?
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.handleCancel}>No</Button>
-              <Button onClick={this.handleConfirm} color='teal' content='Yes' />
-            </Modal.Actions>
-          </Modal>
-        </Table.Cell>
+        {this.props.finished ? null :
+          (
+            <Table.Cell>
+              <Modal
+                open={this.state.open}
+                trigger={<Button secondary onClick={this.show}>Delete</Button>}
+                onClose={this.handleCancel}
+              >
+                <Modal.Content>
+                  Are you sure you want to delete your sell?
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button onClick={this.handleCancel}>No</Button>
+                  <Button onClick={this.handleConfirm} color='teal' content='Yes' />
+                </Modal.Actions>
+              </Modal>
+            </Table.Cell>
+          )}
       </Table.Row>
     )
   }
@@ -397,21 +402,24 @@ class OthersBuyingReq extends React.Component {
         <Table.Cell>
           {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
-        <Table.Cell>
-          <Modal
-            open={this.state.open}
-            trigger={<Button color='teal' onClick={this.show}>Confirm</Button>}
-            onClose={this.handleCancel}
-          >
-            <Modal.Content>
-              Are you sure you want to confirm this request?
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.handleCancel}>No</Button>
-              <Button onClick={this.handleConfirm} color='teal' content='Yes' />
-            </Modal.Actions>
-          </Modal>
-        </Table.Cell>
+        {this.props.finished ? null :
+          (
+            <Table.Cell>
+              <Modal
+                open={this.state.open}
+                trigger={<Button color='teal' onClick={this.show}>Confirm</Button>}
+                onClose={this.handleCancel}
+              >
+                <Modal.Content>
+                  Are you sure you want to confirm this request?
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button onClick={this.handleCancel}>No</Button>
+                  <Button onClick={this.handleConfirm} color='teal' content='Yes' />
+                </Modal.Actions>
+              </Modal>
+            </Table.Cell>
+          )}
       </Table.Row>
     )
   }
@@ -448,7 +456,12 @@ class MyBuyingReq extends React.Component {
 
   render () {
     return (
-      <Table.Row disabled={this.props.confirmed} style={styles.rowStyle}>
+      <Table.Row
+        disabled={this.props.finished}
+        style={styles.rowStyle}
+        positivie={this.props.finished && this.props.confirmed}
+        negative={this.props.finished && !this.props.confirmed}
+      >
         <Table.Cell>
           {this.props.bookName}
         </Table.Cell>
@@ -468,20 +481,26 @@ class MyBuyingReq extends React.Component {
           {(this.props.confirmed) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
-          <Modal
-            open={this.state.open}
-            trigger={<Button secondary onClick={this.show}>Delete</Button>}
-            onClose={this.handleCancel}
-          >
-            <Modal.Content>
-              Are you sure you want to delete your request?
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.handleCancel}>No</Button>
-              <Button onClick={this.handleDeleteConfirm} color='teal' content='Yes' />
-            </Modal.Actions>
-          </Modal>
+          {(this.props.finished) ? "Yes" : "No"}
         </Table.Cell>
+        {this.props.finished ? null :
+          (
+            <Table.Cell>
+              <Modal
+                open={this.state.open}
+                trigger={<Button secondary onClick={this.show}>Delete</Button>}
+                onClose={this.handleCancel}
+              >
+                <Modal.Content>
+                  Are you sure you want to delete your request?
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button onClick={this.handleCancel}>No</Button>
+                  <Button onClick={this.handleDeleteConfirm} color='teal' content='Yes' />
+                </Modal.Actions>
+              </Modal>
+            </Table.Cell>
+          )}
       </Table.Row>
     )
   }

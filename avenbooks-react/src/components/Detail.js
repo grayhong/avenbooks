@@ -138,6 +138,10 @@ class Detail extends Component {
 
   render() {
     const { cookies, bookID } = this.props;
+    let { sellingInfo } = this.state;
+    const remainder = sellingInfo.filter((obj) => {
+      return !obj.Finished;
+    })
     const sid = cookies.get('StudentID');
     return (
       <div>
@@ -150,7 +154,7 @@ class Detail extends Component {
           />
         </div>
           <Card.Group style={styles.cardGroupStyle}>
-            {this.state.sellingInfo.map((info, i) => {
+            {remainder.map((info, i) => {
               console.log(sid);
               console.log(info);
               return (<SellingInfo price={info.Price}
@@ -207,7 +211,7 @@ class SellingInfo extends React.Component {
   render() {
     const { bought, mine } = this.props;
     return (
-      <Card style={styles.detailStyle}>
+      <Card disabled style={styles.detailStyle}>
         <Image src={SELL_IMAGE_URL + this.props.sellingID + '.jpeg'} style={styles.imageStyle} />
         <Card.Content>
           <Card.Header>
