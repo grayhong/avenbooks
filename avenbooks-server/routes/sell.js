@@ -14,7 +14,8 @@ router.get('/sell', async (req, res) => {
     sql = `SELECT * FROM BOOK natural join (SELECT * FROM SELLING WHERE SellerID=${parseInt(sellerID)}) as a order by SellingTime`;
   }
   else if (bookID) {
-    sql = `SELECT * FROM SELLING WHERE BookID=${parseInt(bookID)} ORDER BY Price`;
+    sql = `SELECT SellingID, SellerName, BookID, SellerID, Price, SellingTime FROM Student \
+                  natural join (SELECT * FROM SELLING WHERE BookID=${parseInt(bookID)}) as b ORDER BY Price`;
   }
   else {
     sql = 'SELECT * FROM SELLING';
