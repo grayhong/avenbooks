@@ -465,7 +465,7 @@ class MyBuyingReq extends React.Component {
           {this.props.time}
         </Table.Cell>
         <Table.Cell>
-          {(this.props.finished) ? "Yes" : "No"}
+          {(this.props.confirmed) ? "Yes" : "No"}
         </Table.Cell>
         <Table.Cell>
           <Modal
