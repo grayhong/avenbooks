@@ -31,8 +31,8 @@ router.get('/sell', async (req, res) => {
 
 router.post('/sell', async (req, res) => {
   const { bookID, sellerID, price, edition, base64 } = req.body;
-  const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price)\
-               VALUES(${parseInt(bookID)}, ${parseInt(edition)}, ${parseInt(sellerID)}, ${parseInt(price)})`
+  const sql = `INSERT INTO SELLING(BookID, Edition, SellerID, Price, Finished)\
+               VALUES(${parseInt(bookID)}, ${parseInt(edition)}, ${parseInt(sellerID)}, ${parseInt(price)}, false)`
   
   let id, url;
 
