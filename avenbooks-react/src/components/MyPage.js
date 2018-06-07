@@ -214,6 +214,7 @@ class MyPage extends Component {
                                        finished={info.Finished}
                                        studentID={cookies.get('StudentID')}
                                        getMySellingInfo={this.getMySellingInfo}
+                                       getOthersBuyingReq={this.getOthersBuyingReq}
                                        key={i}/>);
               })}
             </Table.Body>
@@ -325,7 +326,8 @@ class MySellingInfo extends React.Component {
     axios.delete(SELL_URL + '/' + sellingID
       ).then((res) => {
         console.log(res);
-        this.props.getMySellingInfo(this.props.studentID);
+      this.props.getMySellingInfo(this.props.studentID);
+      this.props.getOthersBuyingReq(this.props.studentID);
       }).catch((error) => {
         console.log(error);
     })

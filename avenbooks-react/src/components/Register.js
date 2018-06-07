@@ -53,6 +53,7 @@ class Register extends Component {
                   icon='lock'
                   iconPosition='left'
                   placeholder='Password'
+                  type='password'
                   onChange={event => this.setState({ password: event.target.value })}
                   value={this.state.password}
                 />
